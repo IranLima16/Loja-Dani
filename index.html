@@ -1,0 +1,534 @@
+<title>TOOLA ONE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ink:#121212;
+  --bone:#F2EFEA;
+  --paper:#FFFFFF;
+  --clay:#B9AFA3;
+  --ash:#6E6A66;
+  --tan:#A9784F;
+
+  --bg:var(--bone);
+  --surface:var(--paper);
+  --fg:var(--ink);
+  --fg-soft:#57534E;
+  --fg-mute:var(--ash);
+  --rule:rgba(18,18,18,.14);
+  --rule-soft:rgba(18,18,18,.07);
+  --accent:var(--tan);
+  --invert-bg:#141312;
+  --invert-fg:#EFEAE3;
+  --invert-mute:#9A938A;
+  --invert-rule:rgba(239,234,227,.16);
+
+  --ed-noir:#1A1A1A;
+  --ed-cacau:#4B3327;
+  --ed-caramelo:#A9714A;
+  --ed-nude:#D6B89C;
+
+  --display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --sans:"Archivo","Helvetica Neue",Arial,sans-serif;
+
+  --gutter:clamp(20px,5vw,72px);
+  --section:clamp(88px,11vw,168px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141312; --surface:#1B1917; --fg:#EFEAE3; --fg-soft:#C8C1B8; --fg-mute:#8F887F;
+    --rule:rgba(239,234,227,.16); --rule-soft:rgba(239,234,227,.08);
+    --accent:#C79567;
+    --invert-bg:#0C0B0A; --invert-fg:#EFEAE3; --invert-mute:#8F887F; --invert-rule:rgba(239,234,227,.14);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141312; --surface:#1B1917; --fg:#EFEAE3; --fg-soft:#C8C1B8; --fg-mute:#8F887F;
+  --rule:rgba(239,234,227,.16); --rule-soft:rgba(239,234,227,.08);
+  --accent:#C79567;
+  --invert-bg:#0C0B0A; --invert-fg:#EFEAE3; --invert-mute:#8F887F; --invert-rule:rgba(239,234,227,.14);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.wrap{max-width:1320px;margin:0 auto;padding-inline:var(--gutter)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-mute);margin:0}
+.display{font-family:var(--display);font-weight:400;line-height:1.02;letter-spacing:-.018em;text-wrap:balance;margin:0}
+.lede{font-size:clamp(16px,1.35vw,18px);line-height:1.62;color:var(--fg-soft);max-width:54ch;margin:0}
+.rule{height:1px;background:var(--rule);border:0;margin:0}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:.7em;height:54px;padding:0 30px;border:1px solid transparent;
+  background:var(--fg);color:var(--bg);font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.btn:hover{background:var(--accent);color:#141312}
+.btn--ghost{background:transparent;color:var(--fg);border-color:var(--rule)}
+.btn--ghost:hover{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn--onInvert{background:var(--invert-fg);color:#141312}
+.btn--onInvert:hover{background:var(--accent);color:#141312}
+
+/* ---------- top bars ---------- */
+.announce{background:var(--ink);color:#EFEAE3;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;text-align:center;padding:11px 16px}
+.announce b{font-weight:600;color:var(--clay)}
+header.nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule-soft)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:68px}
+.brand{font-family:var(--sans);font-weight:600;font-size:17px;letter-spacing:.34em;text-decoration:none;padding-left:.34em}
+.nav-links{display:none;gap:34px;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+.nav-links a{text-decoration:none;color:var(--fg-soft);padding-block:6px;border-bottom:1px solid transparent}
+.nav-links a:hover{color:var(--fg);border-color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:22px;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft)}
+@media(min-width:960px){.nav-links{display:flex}}
+
+/* ---------- photo plates ---------- */
+.plate{position:relative;overflow:hidden;background:#1d1a17;isolation:isolate}
+.plate::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(120% 80% at 22% 8%,rgba(255,244,228,.30),transparent 58%),
+  linear-gradient(196deg,#3a332c 0%,#211d19 46%,#100e0c 100%)}
+.plate::after{content:"";position:absolute;inset:0;opacity:.22;mix-blend-mode:overlay;
+  background-image:radial-gradient(rgba(255,255,255,.7) .5px,transparent .6px);background-size:3px 3px}
+.plate .note{position:absolute;left:0;bottom:0;z-index:2;display:flex;gap:10px;align-items:baseline;
+  padding:14px 16px;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:rgba(239,234,227,.62)}
+.plate .note span:first-child{color:var(--tan);font-weight:600}
+.plate--light::before{background:radial-gradient(110% 90% at 70% 0%,#fffdf8,transparent 60%),linear-gradient(200deg,#E8E2D8,#CFC7BA 60%,#B5AB9C)}
+.plate--light .note{color:rgba(20,19,18,.55)}
+.plate--light .note span:first-child{color:#8A5F3B}
+
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--invert-bg);color:var(--invert-fg)}
+.hero-grid{display:grid;grid-template-columns:1fr;min-height:min(86vh,760px)}
+.hero-art{position:relative;min-height:56vw}
+.hero-copy{display:flex;flex-direction:column;justify-content:flex-end;gap:26px;
+  padding:clamp(34px,6vw,76px) var(--gutter) clamp(44px,6vw,80px)}
+.hero h1{font-size:clamp(46px,8.6vw,104px);color:var(--invert-fg)}
+.hero h1 em{font-style:italic;color:var(--clay)}
+.hero .lede{color:var(--invert-mute);max-width:40ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero-cta .btn--ghost{color:var(--invert-fg);border-color:var(--invert-rule)}
+.hero-cta .btn--ghost:hover{background:var(--invert-fg);color:#141312;border-color:var(--invert-fg)}
+.hero-eyebrow{color:var(--invert-mute)}
+@media(min-width:900px){
+  .hero-grid{grid-template-columns:minmax(420px,.96fr) 1.04fr}
+  .hero-art{min-height:100%;order:2}
+  .hero-copy{order:1;padding-right:clamp(32px,4vw,64px)}
+}
+
+/* ---------- spec strip ---------- */
+.strip{background:var(--invert-bg);color:var(--invert-mute);border-top:1px solid var(--invert-rule)}
+.strip-in{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+.strip-in div{padding:22px 4px;border-bottom:1px solid var(--invert-rule);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.strip-in div b{display:block;font-family:var(--display);font-size:26px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--invert-fg);margin-bottom:2px}
+@media(min-width:760px){.strip-in{grid-template-columns:repeat(4,1fr);column-gap:32px}.strip-in div{border-bottom:0}}
+
+section{padding-block:var(--section)}
+.section-head{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(34px,5vw,60px)}
+
+/* ---------- manifesto ---------- */
+.manifesto{display:grid;gap:clamp(34px,5vw,74px);align-items:start}
+.manifesto h2{font-size:clamp(32px,4.4vw,58px)}
+.manifesto .body{display:flex;flex-direction:column;gap:20px;max-width:56ch}
+.manifesto .body p{margin:0;color:var(--fg-soft)}
+.manifesto .body p.first{font-family:var(--display);font-size:clamp(21px,2.3vw,28px);line-height:1.35;color:var(--fg)}
+.sig{font-family:var(--display);font-style:italic;font-size:19px;color:var(--fg-mute)}
+@media(min-width:900px){.manifesto{grid-template-columns:5fr 6fr}}
+
+/* ---------- product statement ---------- */
+.statement{display:grid;gap:clamp(30px,4vw,68px);align-items:center}
+.statement-art{aspect-ratio:4/5}
+.statement-copy{display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+.statement-copy h2{font-size:clamp(36px,4.8vw,62px)}
+.marks{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.marks li{border:1px solid var(--rule);padding:8px 14px;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-soft)}
+@media(min-width:900px){.statement{grid-template-columns:1fr 1fr}.statement-art{aspect-ratio:3/4}}
+
+/* ---------- editions ---------- */
+.editions{background:var(--invert-bg);color:var(--invert-fg)}
+.editions .eyebrow,.editions .lede{color:var(--invert-mute)}
+.editions h2{font-size:clamp(34px,5vw,64px);color:var(--invert-fg)}
+.ed-stage{display:grid;gap:clamp(26px,4vw,56px);align-items:center}
+.ed-view{position:relative;aspect-ratio:4/5;border:1px solid var(--invert-rule)}
+.ed-swatch{position:absolute;inset:0;transition:background .5s ease}
+.ed-view .gloss{position:absolute;inset:0;background:
+  radial-gradient(75% 55% at 28% 16%,rgba(255,248,236,.34),transparent 62%),
+  linear-gradient(200deg,rgba(255,255,255,.08),rgba(0,0,0,.42));mix-blend-mode:overlay}
+.ed-view .grain{position:absolute;inset:0;opacity:.3;mix-blend-mode:overlay;
+  background-image:radial-gradient(rgba(255,255,255,.75) .5px,transparent .6px);background-size:3px 3px}
+.ed-view .tag{position:absolute;left:0;bottom:0;padding:14px 16px;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:rgba(239,234,227,.7)}
+.ed-name{font-family:var(--display);font-size:clamp(46px,7vw,90px);line-height:1;margin:0 0 6px}
+.ed-person{font-family:var(--display);font-style:italic;font-size:clamp(19px,2.2vw,25px);color:var(--clay);margin:0 0 20px}
+.ed-desc{color:var(--invert-mute);max-width:44ch;margin:0 0 26px}
+.ed-meta{display:flex;flex-wrap:wrap;gap:26px;margin:0 0 30px;padding-top:20px;border-top:1px solid var(--invert-rule)}
+.ed-meta div{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--invert-mute)}
+.ed-meta b{display:block;font-family:var(--display);font-size:20px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--invert-fg)}
+.ed-picker{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap}
+.ed-btn{width:56px;height:56px;border:1px solid var(--invert-rule);background:transparent;padding:5px;cursor:pointer;transition:border-color .25s,transform .25s}
+.ed-btn i{display:block;width:100%;height:100%}
+.ed-btn:hover{transform:translateY(-2px)}
+.ed-btn[aria-pressed="true"]{border-color:var(--accent)}
+@media(min-width:900px){.ed-stage{grid-template-columns:1fr 1fr}}
+
+/* ---------- editorial gallery ---------- */
+.gallery{display:grid;gap:clamp(12px,1.6vw,22px)}
+.gallery .plate{aspect-ratio:4/5}
+.gallery .wide{aspect-ratio:16/10}
+@media(min-width:820px){
+  .gallery{grid-template-columns:repeat(12,1fr);align-items:end}
+  .g1{grid-column:1/span 7;aspect-ratio:16/11}
+  .g2{grid-column:8/span 5;aspect-ratio:4/5}
+  .g3{grid-column:1/span 4;aspect-ratio:1/1}
+  .g4{grid-column:5/span 8;aspect-ratio:16/9}
+}
+
+/* ---------- tech spec ---------- */
+.tech{display:grid;gap:clamp(32px,4vw,64px)}
+.tech h2{font-size:clamp(32px,4.4vw,56px)}
+.spec-table{width:100%;border-collapse:collapse;font-size:15px}
+.spec-table th,.spec-table td{text-align:left;padding:15px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+.spec-table th{font-weight:500;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);width:42%;padding-right:20px}
+.spec-table td{color:var(--fg);font-variant-numeric:tabular-nums}
+.spec-note{margin:22px 0 0;font-size:13.5px;color:var(--fg-mute);max-width:52ch}
+.fits{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft)}
+.fits li{background:var(--bg);padding:14px 16px;font-size:13.5px;display:flex;justify-content:space-between;gap:16px}
+.fits li span:last-child{color:var(--fg-mute);font-variant-numeric:tabular-nums}
+@media(min-width:900px){.tech{grid-template-columns:6fr 5fr}.fits{grid-template-columns:1fr 1fr}}
+
+/* ---------- testimonials ---------- */
+.quotes{display:grid;gap:clamp(26px,3vw,44px)}
+.quote{display:flex;flex-direction:column;gap:20px;padding-top:26px;border-top:1px solid var(--rule)}
+.quote blockquote{margin:0;font-family:var(--display);font-size:clamp(21px,2.1vw,27px);line-height:1.32}
+.quote .who{display:flex;align-items:center;gap:14px;margin-top:auto}
+.quote .av{width:44px;height:44px;flex:0 0 44px;border-radius:50%;background:linear-gradient(200deg,#3a332c,#15120f)}
+.quote .who b{display:block;font-size:14px;font-weight:600}
+.quote .who small{display:block;font-size:12px;color:var(--fg-mute);letter-spacing:.04em}
+@media(min-width:860px){.quotes{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- final CTA ---------- */
+.final{background:var(--invert-bg);color:var(--invert-fg);position:relative}
+.final-grid{display:grid;gap:clamp(30px,4vw,64px);align-items:center}
+.final h2{font-size:clamp(38px,6vw,82px);color:var(--invert-fg)}
+.final .lede{color:var(--invert-mute)}
+.price{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:26px 0 8px}
+.price .v{font-family:var(--display);font-size:clamp(34px,4vw,48px);font-variant-numeric:tabular-nums}
+.price .p{font-size:13.5px;color:var(--invert-mute)}
+.assure{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:13px;color:var(--invert-mute)}
+.assure li::before{content:"·";color:var(--accent);margin-right:10px}
+.final .plate{aspect-ratio:1/1}
+@media(min-width:900px){.final-grid{grid-template-columns:1fr 1fr}}
+
+/* ---------- footer ---------- */
+footer{background:var(--invert-bg);color:var(--invert-mute);border-top:1px solid var(--invert-rule);padding-block:clamp(44px,6vw,72px) 34px;font-size:13px}
+.foot-grid{display:grid;gap:34px}
+.foot-grid h4{margin:0 0 14px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--invert-fg);font-weight:600}
+.foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.foot-grid a{text-decoration:none}
+.foot-grid a:hover{color:var(--invert-fg)}
+.foot-bot{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;margin-top:44px;padding-top:22px;border-top:1px solid var(--invert-rule);font-size:11.5px;letter-spacing:.06em}
+@media(min-width:760px){.foot-grid{grid-template-columns:2fr 1fr 1fr 1fr}}
+
+/* ---------- sticky mobile buy bar ---------- */
+.buybar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:11px 16px;background:var(--ink);color:#EFEAE3;border-top:1px solid rgba(239,234,227,.14);
+  transform:translateY(105%);transition:transform .3s ease}
+.buybar.on{transform:none}
+.buybar .bp{font-size:12px;letter-spacing:.06em;color:#B9AFA3}
+.buybar .bp b{display:block;font-family:var(--display);font-size:20px;color:#EFEAE3;letter-spacing:0}
+.buybar .btn{height:44px;padding:0 20px;font-size:11.5px}
+@media(min-width:900px){.buybar{display:none}}
+body{padding-bottom:0}
+@media(max-width:899px){body{padding-bottom:70px}}
+
+.reveal{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){
+  .js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+  .js .reveal.in{opacity:1;transform:none}
+}
+</style>
+
+<div class="announce">Couro certificado <b>LWG</b> · Produção artesanal · Garantia de 90 dias</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">TOOLA</a>
+    <nav class="nav-links">
+      <a href="#produto">TOOLA ONE</a>
+      <a href="#edicoes">Edições</a>
+      <a href="#detalhes">Detalhes</a>
+      <a href="#marca">A marca</a>
+    </nav>
+    <div class="nav-right"><span>Buscar</span><span>Sacola (0)</span></div>
+  </div>
+</header>
+
+<!-- 1. HERO -->
+<section class="hero" id="top" style="padding-block:0">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow hero-eyebrow">TOOLA ONE · Bolsa porta-ferramentas em couro certificado LWG</p>
+      <h1 class="display">Tudo o que sua mão procura.<br><em>Onde ela procura.</em></h1>
+      <p class="lede">Criada para profissionais que transformam imagens com as próprias mãos. Cabeleireiros, barbeiros e maquiadores. Ferramentas organizadas, ao alcance, durante todo o atendimento.</p>
+      <div class="hero-cta">
+        <a class="btn btn--onInvert" href="#edicoes">Escolher minha cor</a>
+        <a class="btn btn--ghost" href="#produto">Ver o produto</a>
+      </div>
+    </div>
+    <div class="hero-art plate">
+      <div class="note"><span>Foto 01</span><span>Hairstylist em atendimento · luz natural lateral · plano médio</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap strip-in">
+    <div><b>Couro LWG</b>Certificação internacional</div>
+    <div><b>11 compartimentos</b>Cada ferramenta no lugar</div>
+    <div><b>25 × 18 cm</b>Alça ajustável</div>
+    <div><b>90 dias</b>Garantia do vendedor</div>
+  </div>
+</div>
+
+<!-- 2. A MARCA -->
+<section id="marca">
+  <div class="wrap manifesto reveal">
+    <div>
+      <p class="eyebrow" style="margin-bottom:16px">A marca</p>
+      <h2 class="display">Para quem transforma<br>imagens com as<br>próprias mãos.</h2>
+    </div>
+    <div class="body">
+      <p class="first">A TOOLA une funcionalidade, design e estilo em um acessório desenvolvido para acompanhar a rotina de cabeleireiros, barbeiros e maquiadores.</p>
+      <p>Mais do que carregar ferramentas, ela foi criada para fazer parte da imagem e da identidade do profissional.</p>
+      <p class="sig">Crafted with purpose. Designed for your craft.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- 3. O PRODUTO -->
+<section id="produto">
+  <div class="wrap statement">
+    <div class="statement-art plate reveal">
+      <div class="note"><span>Foto 02</span><span>TOOLA ONE em uso · plano médio · luz natural</span></div>
+    </div>
+    <div class="statement-copy reveal">
+      <p class="eyebrow">O produto</p>
+      <h2 class="display">Nenhuma pausa<br>para procurar.</h2>
+      <p class="lede">No formato que a rotina do atendimento pede: suas ferramentas sempre ao alcance, com liberdade para criar.</p>
+      <ul class="marks">
+        <li>Acabamento premium</li>
+        <li>Alça ajustável</li>
+        <li>Couro certificado LWG</li>
+        <li>Design sofisticado</li>
+      </ul>
+      <a class="btn btn--ghost" href="#edicoes">Ver as quatro cores</a>
+    </div>
+  </div>
+</section>
+
+<!-- 4. AS 4 EDIÇÕES -->
+<section class="editions" id="edicoes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">As quatro edições</p>
+      <h2 class="display">Sua cor diz quem você é<br>antes de você dizer.</h2>
+      <p class="lede">A TOOLA ONE chega em quatro couros certificados LWG. Não são variantes. São quatro personalidades de profissional.</p>
+    </div>
+
+    <div class="ed-stage reveal">
+      <div class="ed-view">
+        <div class="ed-swatch" id="edSwatch" style="background:#1A1A1A"></div>
+        <div class="gloss"></div><div class="grain"></div>
+        <div class="tag" id="edTag">Foto 03 · Still de produto · edição Caramelo · fundo concreto</div>
+      </div>
+      <div>
+        <div class="ed-picker" role="group" aria-label="Escolher edição">
+          <button class="ed-btn" data-ed="0" aria-pressed="true" aria-label="Edição Caramelo, marrom claro"><i style="background:#A9714A"></i></button>
+          <button class="ed-btn" data-ed="1" aria-pressed="false" aria-label="Edição Cacau, marrom escuro"><i style="background:#4B3327"></i></button>
+          <button class="ed-btn" data-ed="2" aria-pressed="false" aria-label="Edição Nude"><i style="background:#D6B89C"></i></button>
+          <button class="ed-btn" data-ed="3" aria-pressed="false" aria-label="Edição Noir, preto"><i style="background:#1A1A1A"></i></button>
+        </div>
+        <h3 class="ed-name" id="edName">CARAMELO</h3>
+        <p class="ed-person" id="edPerson">Para quem transforma o salão em casa.</p>
+        <p class="ed-desc" id="edDesc">O couro que mais muda com o tempo. Começa quente, escurece nas dobras, guarda o desenho da sua rotina. Para o profissional que recebe, conversa e faz o cliente querer ficar.</p>
+        <div class="ed-meta">
+          <div>Couro<b id="edLeather">Marrom claro</b></div>
+          <div>Ferragem<b id="edHw">Metal polido</b></div>
+          <div>Produção<b>Artesanal</b></div>
+        </div>
+        <a class="btn btn--onInvert" href="#comprar">Comprar a edição <span id="edCta">Caramelo</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. DETALHES TÉCNICOS -->
+<section id="detalhes">
+  <div class="wrap tech">
+    <div class="reveal">
+      <p class="eyebrow" style="margin-bottom:16px">Ficha técnica</p>
+      <h2 class="display">O que sustenta<br>o acabamento premium.</h2>
+      <table class="spec-table">
+        <tbody>
+          <tr><th>Material</th><td>Couro com certificação LWG (Leather Working Group)</td></tr>
+          <tr><th>Produção</th><td>Artesanal, peça a peça</td></tr>
+          <tr><th>Acabamento</th><td>Premium, com atenção a cada costura e borda</td></tr>
+          <tr><th>Ferragens</th><td>Metálicas resistentes · mosquetões na alça</td></tr>
+          <tr><th>Dimensões</th><td>25 cm de altura × 18 cm de largura</td></tr>
+          <tr><th>Alça</th><td>Ajustável. Uso a tiracolo, na cintura ou no quadril</td></tr>
+          <tr><th>Organização</th><td>11 compartimentos para tesouras, pentes, presilhas, pincéis e acessórios</td></tr>
+          <tr><th>Cores</th><td>Marrom claro, Marrom escuro, Nude e Preto</td></tr>
+          <tr><th>Indicado para</th><td>Cabeleireiros, barbeiros, maquiadores e profissionais da beleza</td></tr>
+          <tr><th>Conteúdo da embalagem</th><td>1 bolsa porta-ferramentas TOOLA com alça ajustável</td></tr>
+          <tr><th>Garantia</th><td>90 dias, garantia do vendedor</td></tr>
+        </tbody>
+      </table>
+      <p class="spec-note"><strong>Sobre a certificação LWG:</strong> padrão reconhecido internacionalmente para a produção responsável do couro, com critérios ambientais e de rastreabilidade dentro da cadeia produtiva.</p>
+    </div>
+    <div class="reveal">
+      <div class="plate" style="aspect-ratio:4/5;margin-bottom:26px"><div class="note"><span>Foto 04</span><span>Macro · costura e ferragem metálica</span></div></div>
+      <p class="eyebrow" style="margin-bottom:14px">Organiza</p>
+      <ul class="fits">
+        <li><span>Tesouras</span><span>corte e desbaste</span></li>
+        <li><span>Pentes</span><span>compartimento próprio</span></li>
+        <li><span>Presilhas</span><span>acesso rápido</span></li>
+        <li><span>Pincéis</span><span>maquiagem e barba</span></li>
+        <li><span>Acessórios</span><span>bolso frontal</span></li>
+        <li><span>Total</span><span>11 compartimentos</span></li>
+      </ul>
+      <p class="spec-note" style="font-size:12.5px">Tesouras, pentes, presilhas, pincéis e demais ferramentas apresentadas nas imagens são ilustrativos e não acompanham o produto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. DEPOIMENTOS -->
+<section id="depoimentos" style="background:var(--surface)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Quem já trabalha com ela</p>
+      <h2 class="display" style="font-size:clamp(32px,4.4vw,58px)">A ferramenta que entra<br>na imagem do profissional.</h2>
+      <p class="lede" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)">Depoimentos ilustrativos · substituir por clientes reais antes de publicar</p>
+    </div>
+    <div class="quotes reveal">
+      <figure class="quote">
+        <blockquote>“Na terceira semana percebi que tinha parado de procurar. A mão já sabia. Isso me devolveu uns vinte minutos por dia.”</blockquote>
+        <figcaption class="who"><span class="av"></span><span><b>Camila Rodrigues</b><small>Studio Nove · São Paulo, SP · @camila.hair</small></span></figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>“Eu tinha medo do peso. É o contrário: o cinto joga tudo pro quadril e a lombar agradece no fim do sábado.”</blockquote>
+        <figcaption class="who"><span class="av"></span><span><b>Tiago Menezes</b><small>Barbearia Ofício · Curitiba, PR · @tiago.corta</small></span></figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>“Cliente pergunta onde comprei antes de perguntar o preço do corte. Virou parte da minha marca, sem eu planejar.”</blockquote>
+        <figcaption class="who"><span class="av"></span><span><b>Ana Beatriz Sales</b><small>Atelier AB · Recife, PE · @anabeatriz.hair</small></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 8. CTA FINAL -->
+<section class="final" id="comprar">
+  <div class="wrap final-grid">
+    <div class="reveal">
+      <p class="eyebrow" style="color:var(--invert-mute);margin-bottom:18px">TOOLA ONE</p>
+      <h2 class="display">Escolha a sua.<br>Trabalhe diferente<br>a partir de amanhã.</h2>
+      <div class="price">
+        <span class="v">R$ 343,50</span>
+        <span class="p">ou 6× de R$ 57,25 sem juros</span>
+      </div>
+      <a class="btn btn--onInvert" href="#edicoes" style="margin-top:14px">Escolher minha cor</a>
+      <ul class="assure">
+        <li>Couro com certificação LWG · produção artesanal</li>
+        <li>11 compartimentos · 25 × 18 cm · alça ajustável</li>
+        <li>Garantia do vendedor de 90 dias</li>
+        <li>Conteúdo: 1 bolsa porta-ferramentas com alça ajustável</li>
+        <li>Ferramentas das fotos são ilustrativas e não acompanham o produto</li>
+      </ul>
+    </div>
+    <div class="plate reveal"><div class="note"><span>Foto 05</span><span>As quatro edições juntas · vista superior</span></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="color:var(--invert-fg);display:inline-block;margin-bottom:14px">TOOLA</div>
+        <p style="margin:0;max-width:34ch">Bags &amp; accessories para profissionais da beleza. Couro certificado LWG, produção artesanal.</p>
+        <p style="margin:14px 0 0;font-family:var(--display);font-style:italic;font-size:16px;color:var(--clay)">Crafted with purpose.<br>Designed for your craft.</p>
+      </div>
+      <div><h4>Produto</h4><ul><li><a href="#produto">TOOLA ONE</a></li><li><a href="#edicoes">Edições</a></li><li><a href="#detalhes">Ficha técnica</a></li><li><a href="#detalhes">Certificação LWG</a></li></ul></div>
+      <div><h4>Ajuda</h4><ul><li><a href="#">Envio e prazos</a></li><li><a href="#">Trocas e devoluções</a></li><li><a href="#">Garantia de 90 dias</a></li><li><a href="#">Fale conosco</a></li></ul></div>
+      <div><h4>TOOLA</h4><ul><li><a href="#marca">Nossa história</a></li><li><a href="#">Para salões</a></li><li><a href="#">Instagram</a></li><li><a href="#">WhatsApp</a></li></ul></div>
+    </div>
+    <div class="foot-bot"><span>© 2026 TOOLA Bags &amp; Accessories</span><span>Privacidade · Termos · Trocas</span></div>
+  </div>
+</footer>
+
+<div class="buybar" id="buybar">
+  <div class="bp">TOOLA ONE<b>R$ 343,50</b></div>
+  <a class="btn btn--onInvert" href="#edicoes">Escolher minha cor</a>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+
+var EDITIONS=[
+ {n:"CARAMELO",hex:"#A9714A",p:"Para quem transforma o salão em casa.",
+  d:"O couro que mais muda com o tempo. Começa quente, escurece nas dobras, guarda o desenho da sua rotina. Para o profissional que recebe, conversa e faz o cliente querer ficar.",
+  l:"Marrom claro",h:"Metal polido"},
+ {n:"CACAU",hex:"#4B3327",p:"Para quem faz do ofício uma tradição.",
+  d:"O couro mais sóbrio da linha. A edição de quem trabalha há tempo suficiente para não precisar de novidade, e de quem quer uma peça que atravesse o dia a dia sem se entregar.",
+  l:"Marrom escuro",h:"Metal escovado"},
+ {n:"NUDE",hex:"#D6B89C",p:"Para quem trabalha com luz e espaço.",
+  d:"O couro mais claro e mais honesto: mostra a veia, o poro e a marca de cada dia de trabalho. Pensada para salões claros, onde a ferramenta acompanha o ambiente em vez de brigar com ele.",
+  l:"Nude",h:"Metal polido"},
+ {n:"NOIR",hex:"#1A1A1A",p:"Para quem não precisa dizer nada.",
+  d:"Couro preto, ferragem escurecida, costura tom sobre tom. A edição do profissional clássico, aquele cuja assinatura está no corte, não no acessório. Some no preto do uniforme e aparece só no detalhe.",
+  l:"Preto",h:"Metal escurecido"}
+];
+
+var els={sw:document.getElementById('edSwatch'),tag:document.getElementById('edTag'),n:document.getElementById('edName'),
+ p:document.getElementById('edPerson'),d:document.getElementById('edDesc'),l:document.getElementById('edLeather'),
+ h:document.getElementById('edHw'),cta:document.getElementById('edCta')};
+
+function setEdition(i){
+  var e=EDITIONS[i];
+  els.sw.style.background=e.hex;
+  els.n.textContent=e.n;
+  els.p.textContent=e.p;
+  els.d.textContent=e.d;
+  els.l.textContent=e.l;
+  els.h.textContent=e.h;
+  els.cta.textContent=e.n.charAt(0)+e.n.slice(1).toLowerCase();
+  els.tag.textContent="Foto 03 · Still de produto · edição "+e.n.charAt(0)+e.n.slice(1).toLowerCase()+" · fundo concreto";
+  document.querySelectorAll('.ed-btn').forEach(function(b){
+    b.setAttribute('aria-pressed', b.dataset.ed===String(i) ? 'true':'false');
+  });
+}
+document.querySelectorAll('.ed-btn').forEach(function(b){
+  b.addEventListener('click',function(){setEdition(Number(b.dataset.ed));});
+});
+
+var bar=document.getElementById('buybar');
+var hero=document.getElementById('top');
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(es){
+    es.forEach(function(en){ bar.classList.toggle('on', !en.isIntersecting); });
+  },{threshold:0}).observe(hero);
+
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+  }
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+}
+</script>
