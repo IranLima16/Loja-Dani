@@ -65,6 +65,17 @@ a{color:inherit}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-mute);margin:0}
 .display{font-family:var(--display);font-weight:400;line-height:1.02;letter-spacing:-.018em;text-wrap:balance;margin:0}
 .lede{font-size:clamp(16px,1.35vw,18px);line-height:1.62;color:var(--fg-soft);max-width:54ch;margin:0}
+/* Textos corridos justificados. A hifenizacao evita os vaos largos que
+   o justificado abre em portugues; depende do lang="pt-BR" no <html>. */
+.lede,.manifesto .body p,.ed-desc,.spec-note{
+  text-align:justify;text-justify:inter-word;
+  -webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:6 3 3;
+}
+.manifesto .body p.sig{text-align:left;hyphens:none}
+/* Em telas estreitas a coluna fica curta demais para justificar bem. */
+@media(max-width:520px){
+  .lede,.manifesto .body p,.ed-desc,.spec-note{text-align:left;hyphens:none}
+}
 .rule{height:1px;background:var(--rule);border:0;margin:0}
 
 /* ---------- buttons ---------- */
@@ -193,7 +204,10 @@ section{padding-block:var(--section)}
 .tech h2{font-size:clamp(32px,4.4vw,56px)}
 .spec-table{width:100%;border-collapse:collapse;font-size:15px}
 .spec-table th,.spec-table td{text-align:left;padding:15px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top}
-.spec-table th{font-weight:500;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);width:42%;padding-right:20px}
+.spec-table th{font-weight:500;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-mute);width:30%;padding-right:20px;line-height:1.45}
+/* 30% deixa o rotulo mais longo ("Conteudo da embalagem") quebrar em duas
+   linhas. Com 42% ele cabia em uma so, mas sobrava um vao grande entre as
+   colunas em todas as demais linhas, que sao bem mais curtas. */
 .spec-table td{color:var(--fg);font-variant-numeric:tabular-nums}
 .spec-note{margin:22px 0 0;font-size:13.5px;color:var(--fg-mute);max-width:52ch}
 .fits{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft)}
@@ -328,7 +342,7 @@ body{padding-bottom:0}
         <li>Couro certificado LWG</li>
         <li>Design sofisticado</li>
       </ul>
-      <a class="btn btn--ghost" href="#edicoes">Ver as quatro cores</a>
+      <a class="btn btn--ghost" href="#edicoes">Confira os modelos</a>
     </div>
   </div>
 </section>
@@ -420,10 +434,6 @@ body{padding-bottom:0}
       </div>
       <a class="btn btn--onInvert" href="#edicoes" style="margin-top:14px">Escolher minha cor</a>
       <ul class="assure">
-        <li>Couro com certificação LWG · produção artesanal</li>
-        <li>11 compartimentos · 25 × 18 cm · alça ajustável</li>
-        <li>Garantia do vendedor de 90 dias</li>
-        <li>Conteúdo: 1 bolsa porta-ferramentas com alça ajustável</li>
         <li>Ferramentas das fotos são ilustrativas e não acompanham o produto</li>
       </ul>
     </div>
