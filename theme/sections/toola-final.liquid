@@ -1,0 +1,101 @@
+{%- liquid
+  assign product = section.settings.product
+  assign img = section.settings.image
+  assign variant = product.selected_or_first_available_variant
+-%}
+
+<section class="final" id="{{ section.settings.anchor | default: 'comprar' }}">
+  <div class="wrap final-grid">
+    <div class="reveal">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow" style="color:var(--invert-mute);margin-bottom:18px">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="display">{{ section.settings.heading }}</h2>
+
+      <div class="price">
+        {%- if variant -%}
+          <span class="v">{{ variant.price | money }}</span>
+        {%- elsif section.settings.price_fallback != blank -%}
+          <span class="v">{{ section.settings.price_fallback }}</span>
+        {%- endif -%}
+        {%- if section.settings.price_note != blank -%}
+          <span class="p">{{ section.settings.price_note }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.cta_label != blank -%}
+        <a class="btn btn--onInvert" href="{{ section.settings.cta_url | default: '#edicoes' }}" style="margin-top:14px">
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="assure">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="plate reveal{% if img %} plate--has-image{% endif %}">
+      {%- if img -%}
+        {{ img | image_url: width: 1200 | image_tag:
+             loading: 'lazy', sizes: '(min-width: 900px) 46vw, 100vw',
+             widths: '500,800,1200', class: 'plate-img', alt: img.alt | default: section.settings.heading }}
+      {%- else -%}
+        <div class="note"><span>{{ section.settings.slot_id }}</span><span>{{ section.settings.slot_brief }}</span></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.show_buybar -%}
+  <div class="buybar" data-buybar>
+    <div class="bp">
+      {{ section.settings.buybar_title }}
+      <b>
+        {%- if variant -%}{{ variant.price | money }}
+        {%- else -%}{{ section.settings.price_fallback }}{%- endif -%}
+      </b>
+    </div>
+    <a class="btn btn--onInvert" href="{{ section.settings.cta_url | default: '#edicoes' }}">
+      {{ section.settings.buybar_cta }}
+    </a>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "TOOLA CTA final",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Âncora", "default": "comprar" },
+    { "type": "product", "id": "product", "label": "Produto",
+      "info": "Usado só para mostrar o preço real. A compra acontece na seção das edições." },
+    { "type": "text", "id": "eyebrow", "label": "Linha de apoio", "default": "TOOLA ONE" },
+    { "type": "html", "id": "heading", "label": "Título",
+      "default": "Escolha a que combina<br>com o seu jeito de criar." },
+    { "type": "text", "id": "price_fallback", "label": "Preço (sem produto)", "default": "R$ 343,50" },
+    { "type": "text", "id": "price_note", "label": "Nota do preço", "default": "ou 6× de R$ 57,25 sem juros" },
+    { "type": "text", "id": "cta_label", "label": "Texto do botão", "default": "Escolher minha cor" },
+    { "type": "url", "id": "cta_url", "label": "Link do botão" },
+    { "type": "header", "content": "Foto" },
+    { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "text", "id": "slot_id", "label": "Código do slot", "default": "Foto 05" },
+    { "type": "text", "id": "slot_brief", "label": "Briefing da foto", "default": "As quatro edições juntas · vista superior" },
+    { "type": "header", "content": "Barra fixa no celular" },
+    { "type": "checkbox", "id": "show_buybar", "label": "Mostrar barra de compra", "default": true },
+    { "type": "text", "id": "buybar_title", "label": "Título da barra", "default": "TOOLA ONE" },
+    { "type": "text", "id": "buybar_cta", "label": "Botão da barra", "default": "Escolher minha cor" }
+  ],
+  "blocks": [
+    { "type": "assure", "name": "Aviso", "settings": [
+      { "type": "textarea", "id": "text", "label": "Texto",
+        "default": "Ferramentas das fotos são ilustrativas e não acompanham o produto" } ] }
+  ],
+  "presets": [
+    { "name": "TOOLA CTA final", "blocks": [
+      { "type": "assure", "settings": { "text": "Ferramentas das fotos são ilustrativas e não acompanham o produto" } } ] }
+  ]
+}
+{% endschema %}

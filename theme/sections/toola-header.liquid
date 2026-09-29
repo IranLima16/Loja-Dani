@@ -1,0 +1,47 @@
+{{ 'toola.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.announce != blank -%}
+  <div class="announce">{{ section.settings.announce }}</div>
+{%- endif -%}
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="{{ routes.root_url }}">{{ section.settings.brand | default: shop.name }}</a>
+    <nav class="nav-links">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="nav-right">
+      <a href="{{ routes.search_url }}">Buscar</a>
+      <a href="{{ routes.cart_url }}">Sacola ({{ cart.item_count }})</a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "TOOLA cabeçalho",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand",
+      "label": "Marca",
+      "default": "TOOLA"
+    },
+    {
+      "type": "html",
+      "id": "announce",
+      "label": "Faixa de aviso",
+      "info": "Aceita HTML. Use <b> para destacar em cor de areia.",
+      "default": "Couro certificado <b>LWG</b> · Produção artesanal · Garantia de 90 dias"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

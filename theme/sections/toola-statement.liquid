@@ -1,0 +1,60 @@
+{%- assign img = section.settings.image -%}
+<section id="{{ section.settings.anchor | default: 'produto' }}">
+  <div class="wrap statement">
+    <div class="statement-art plate reveal{% if img %} plate--has-image{% endif %}">
+      {%- if img -%}
+        {{ img | image_url: width: 1200 | image_tag:
+             loading: 'lazy', sizes: '(min-width: 900px) 46vw, 100vw',
+             widths: '500,800,1200', class: 'plate-img', alt: img.alt | default: section.settings.heading }}
+      {%- else -%}
+        <div class="note"><span>{{ section.settings.slot_id }}</span><span>{{ section.settings.slot_brief }}</span></div>
+      {%- endif -%}
+    </div>
+    <div class="statement-copy reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="display">{{ section.settings.heading }}</h2>
+      {%- if section.settings.lede != blank -%}<p class="lede">{{ section.settings.lede }}</p>{%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="marks">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank -%}
+        <a class="btn btn--ghost" href="{{ section.settings.cta_url | default: '#edicoes' }}">{{ section.settings.cta_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TOOLA o produto",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Âncora", "default": "produto" },
+    { "type": "text", "id": "eyebrow", "label": "Linha de apoio", "default": "O produto" },
+    { "type": "html", "id": "heading", "label": "Título", "default": "Nenhuma pausa<br>para procurar." },
+    { "type": "textarea", "id": "lede", "label": "Texto de apoio",
+      "default": "No formato que a rotina do atendimento pede: suas ferramentas sempre ao alcance, com liberdade para criar." },
+    { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "header", "content": "Enquanto não há foto" },
+    { "type": "text", "id": "slot_id", "label": "Código do slot", "default": "Foto 02" },
+    { "type": "text", "id": "slot_brief", "label": "Briefing da foto", "default": "TOOLA ONE em uso · plano médio · luz natural" },
+    { "type": "header", "content": "Botão" },
+    { "type": "text", "id": "cta_label", "label": "Texto do botão", "default": "Confira os modelos" },
+    { "type": "url", "id": "cta_url", "label": "Link do botão" }
+  ],
+  "blocks": [
+    { "type": "mark", "name": "Selo", "settings": [
+      { "type": "text", "id": "text", "label": "Texto", "default": "Acabamento premium" } ] }
+  ],
+  "presets": [
+    { "name": "TOOLA o produto", "blocks": [
+      { "type": "mark", "settings": { "text": "Acabamento premium" } },
+      { "type": "mark", "settings": { "text": "Alça ajustável" } },
+      { "type": "mark", "settings": { "text": "Couro certificado LWG" } },
+      { "type": "mark", "settings": { "text": "Design sofisticado" } } ] }
+  ]
+}
+{% endschema %}

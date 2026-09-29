@@ -1,0 +1,37 @@
+<div class="strip">
+  <div class="wrap strip-in">
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>
+        <b>{{ block.settings.value }}</b>{{ block.settings.label }}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TOOLA faixa",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Destaque", "default": "Couro LWG" },
+        { "type": "text", "id": "label", "label": "Descrição", "default": "Certificação internacional" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TOOLA faixa",
+      "blocks": [
+        { "type": "item", "settings": { "value": "Couro LWG", "label": "Certificação internacional" } },
+        { "type": "item", "settings": { "value": "11 compartimentos", "label": "Cada ferramenta no lugar" } },
+        { "type": "item", "settings": { "value": "25 × 18 cm", "label": "Alça ajustável" } },
+        { "type": "item", "settings": { "value": "90 dias", "label": "Garantia do vendedor" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="color:var(--invert-fg);display:inline-block;margin-bottom:14px">
+          {{ section.settings.brand | default: shop.name }}
+        </div>
+        {%- if section.settings.about != blank -%}
+          <p style="margin:0;max-width:34ch">{{ section.settings.about }}</p>
+        {%- endif -%}
+        {%- if section.settings.sig != blank -%}
+          <p style="margin:14px 0 0;font-family:var(--display);font-style:italic;font-size:16px;color:var(--clay)">
+            {{ section.settings.sig }}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <h4>{{ block.settings.title }}</h4>
+          <ul>
+            {%- for link in block.settings.menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="foot-bot">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal | default: shop.name }}</span>
+      {%- if section.settings.policies != blank -%}<span>{{ section.settings.policies }}</span>{%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "TOOLA rodapé",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "brand", "label": "Marca", "default": "TOOLA" },
+    { "type": "textarea", "id": "about", "label": "Sobre",
+      "default": "Bags & accessories para profissionais da beleza. Couro certificado LWG, produção artesanal." },
+    { "type": "html", "id": "sig", "label": "Assinatura",
+      "default": "Crafted with purpose.<br>Designed for your craft." },
+    { "type": "text", "id": "legal", "label": "Razão social", "default": "TOOLA Bags & Accessories" },
+    { "type": "text", "id": "policies", "label": "Políticas", "default": "Privacidade · Termos · Trocas" }
+  ],
+  "blocks": [
+    { "type": "column", "name": "Coluna de links", "settings": [
+      { "type": "text", "id": "title", "label": "Título", "default": "Produto" },
+      { "type": "link_list", "id": "menu", "label": "Menu" } ] }
+  ]
+}
+{% endschema %}

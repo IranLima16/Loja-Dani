@@ -1,0 +1,36 @@
+<section id="{{ section.settings.anchor | default: 'marca' }}">
+  <div class="wrap manifesto reveal">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow" style="margin-bottom:16px">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="display">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="body">
+      {%- if section.settings.first != blank -%}<p class="first">{{ section.settings.first }}</p>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.sig != blank -%}<p class="sig">{{ section.settings.sig }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+{%- if section.settings.rule -%}<hr class="rule">{%- endif -%}
+
+{% schema %}
+{
+  "name": "TOOLA a marca",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Âncora", "default": "marca" },
+    { "type": "text", "id": "eyebrow", "label": "Linha de apoio", "default": "A marca" },
+    { "type": "html", "id": "heading", "label": "Título",
+      "default": "Para quem transforma<br>imagens com as<br>próprias mãos." },
+    { "type": "textarea", "id": "first", "label": "Parágrafo de destaque",
+      "default": "A TOOLA une funcionalidade, design e estilo em um acessório desenvolvido para acompanhar a rotina de cabeleireiros, barbeiros e maquiadores." },
+    { "type": "textarea", "id": "text", "label": "Parágrafo",
+      "default": "Mais do que carregar ferramentas, ela foi criada para fazer parte da imagem e da identidade do profissional." },
+    { "type": "text", "id": "sig", "label": "Assinatura",
+      "default": "Crafted with purpose. Designed for your craft." },
+    { "type": "checkbox", "id": "rule", "label": "Linha divisória no fim", "default": true }
+  ],
+  "presets": [{ "name": "TOOLA a marca" }]
+}
+{% endschema %}

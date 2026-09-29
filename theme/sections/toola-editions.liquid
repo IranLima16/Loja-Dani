@@ -1,0 +1,162 @@
+{%- comment -%}
+  Seletor de edicoes ligado ao produto real.
+
+  Cada bloco descreve UMA cor. O campo "Valor da variante" precisa bater,
+  letra por letra, com o valor da opcao de cor cadastrada no produto: e por
+  ele que o bloco encontra a variante, o preco e a foto. Se nao bater, o
+  bloco ainda aparece, mas sem botao de compra.
+{%- endcomment -%}
+
+{%- liquid
+  assign product = section.settings.product
+  assign opt_index = 1
+  if product != blank
+    assign wanted = section.settings.option_name | downcase
+    for opt in product.options_with_values
+      assign opt_down = opt.name | downcase
+      if opt_down == wanted
+        assign opt_index = forloop.index
+      endif
+    endfor
+  endif
+  assign opt_pos = opt_index | minus: 1
+-%}
+
+<section class="editions" id="{{ section.settings.anchor | default: 'edicoes' }}">
+  <div class="wrap">
+    <div class="section-head reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="display">{{ section.settings.heading }}</h2>
+      {%- if section.settings.lede != blank -%}<p class="lede">{{ section.settings.lede }}</p>{%- endif -%}
+    </div>
+
+    <div class="ed-stage reveal" data-ed-stage>
+      <div class="ed-view">
+        <div class="ed-swatch" data-ed-swatch></div>
+        {%- comment -%}
+          width/height so a proporcao do slot (4/5), so para o navegador
+          reservar espaco: o object-fit do CSS cuida do recorte real.
+        {%- endcomment -%}
+        <img class="ed-img" data-ed-img alt="" width="1200" height="1500" loading="lazy" hidden>
+        <div class="gloss"></div><div class="grain"></div>
+        <div class="tag" data-ed-tag></div>
+      </div>
+
+      <div>
+        <div class="ed-picker" role="group" aria-label="{{ section.settings.picker_label | escape }}">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign v = null
+              assign v_img = null
+              if product != blank
+                for variant in product.variants
+                  assign vval = variant.options[opt_pos]
+                  if vval == block.settings.option_value
+                    assign v = variant
+                    assign v_img = variant.image | default: product.featured_image
+                    break
+                  endif
+                endfor
+              endif
+              assign pretty = block.settings.name | downcase | capitalize
+            -%}
+            <button type="button"
+                    class="ed-btn"
+                    data-ed-btn
+                    aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                    aria-label="Edição {{ block.settings.name }}{% if block.settings.leather != blank %}, {{ block.settings.leather }}{% endif %}"
+                    data-ed-hex="{{ block.settings.hex }}"
+                    data-ed-name="{{ block.settings.name | escape }}"
+                    data-ed-label="{{ pretty | escape }}"
+                    data-ed-person="{{ block.settings.person | escape }}"
+                    data-ed-desc="{{ block.settings.desc | escape }}"
+                    data-ed-leather="{{ block.settings.leather | escape }}"
+                    data-ed-hw="{{ block.settings.hardware | escape }}"
+                    data-ed-tag="{% if v_img %}{{ v_img.alt | escape }}{% else %}{{ section.settings.slot_id }} · {{ section.settings.slot_brief }} · edição {{ pretty }}{% endif %}"
+                    {% if v %}data-ed-variant="{{ v.id }}"{% endif %}
+                    {% if v_img %}
+                      data-ed-image="{{ v_img | image_url: width: 1200 }}"
+                      data-ed-image-srcset="{{ v_img | image_url: width: 600 }} 600w, {{ v_img | image_url: width: 900 }} 900w, {{ v_img | image_url: width: 1200 }} 1200w"
+                      data-ed-image-alt="{{ v_img.alt | default: block.settings.name | escape }}"
+                    {% endif %}
+                    {{ block.shopify_attributes }}>
+              <i style="background:{{ block.settings.hex }}"></i>
+            </button>
+          {%- endfor -%}
+        </div>
+
+        <h3 class="ed-name" data-ed-name></h3>
+        <p class="ed-person" data-ed-person></p>
+        <p class="ed-desc" data-ed-desc></p>
+
+        <div class="ed-meta">
+          <div>{{ section.settings.meta1 }}<b data-ed-leather></b></div>
+          <div>{{ section.settings.meta2 }}<b data-ed-hw></b></div>
+          {%- if section.settings.meta3 != blank -%}
+            <div>{{ section.settings.meta3 }}<b>{{ section.settings.meta3_value }}</b></div>
+          {%- endif -%}
+        </div>
+
+        {%- if product != blank -%}
+          {%- form 'product', product, id: 'toola-editions-form' -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-ed-variant-input>
+            <button type="submit" class="btn btn--onInvert">
+              {{ section.settings.cta_label }} <span data-ed-cta></span>
+            </button>
+          {%- endform -%}
+        {%- else -%}
+          <a class="btn btn--onInvert" href="{{ section.settings.cta_url | default: '#comprar' }}">
+            {{ section.settings.cta_label }} <span data-ed-cta></span>
+          </a>
+          <p class="ed-warn">Escolha o produto nas opções desta seção para habilitar a compra.</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TOOLA edições",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Âncora", "default": "edicoes" },
+    { "type": "product", "id": "product", "label": "Produto" },
+    { "type": "text", "id": "option_name", "label": "Nome da opção de cor", "default": "Cor",
+      "info": "Como a opção se chama no produto. Serve para achar a variante de cada bloco." },
+    { "type": "text", "id": "eyebrow", "label": "Linha de apoio", "default": "As quatro edições" },
+    { "type": "html", "id": "heading", "label": "Título",
+      "default": "Encontre a cor que combina<br>com a sua assinatura" },
+    { "type": "textarea", "id": "lede", "label": "Texto de apoio",
+      "default": "A TOOLA ONE chega em quatro couros certificados LWG. Não são variantes. São quatro personalidades de profissional." },
+    { "type": "header", "content": "Rótulos" },
+    { "type": "text", "id": "picker_label", "label": "Rótulo do seletor", "default": "Escolher edição" },
+    { "type": "text", "id": "meta1", "label": "Rótulo 1", "default": "Couro" },
+    { "type": "text", "id": "meta2", "label": "Rótulo 2", "default": "Ferragem" },
+    { "type": "text", "id": "meta3", "label": "Rótulo 3", "default": "Produção" },
+    { "type": "text", "id": "meta3_value", "label": "Valor do rótulo 3", "default": "Artesanal" },
+    { "type": "header", "content": "Botão" },
+    { "type": "text", "id": "cta_label", "label": "Texto do botão", "default": "Comprar a edição" },
+    { "type": "url", "id": "cta_url", "label": "Link (quando não há produto)" },
+    { "type": "header", "content": "Enquanto não há foto" },
+    { "type": "text", "id": "slot_id", "label": "Código do slot", "default": "Foto 03" },
+    { "type": "text", "id": "slot_brief", "label": "Briefing da foto", "default": "Still de produto · fundo concreto" }
+  ],
+  "blocks": [
+    {
+      "type": "edition",
+      "name": "Edição",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nome exibido", "default": "CARAMELO" },
+        { "type": "text", "id": "option_value", "label": "Valor da variante", "default": "Caramelo",
+          "info": "Precisa ser igual ao valor cadastrado no produto." },
+        { "type": "color", "id": "hex", "label": "Cor do couro", "default": "#A9714A" },
+        { "type": "text", "id": "person", "label": "Frase de destaque", "default": "Para quem transforma o salão em casa." },
+        { "type": "textarea", "id": "desc", "label": "Descrição" },
+        { "type": "text", "id": "leather", "label": "Couro", "default": "Marrom claro" },
+        { "type": "text", "id": "hardware", "label": "Ferragem", "default": "Metal polido" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "TOOLA edições" }]
+}
+{% endschema %}

@@ -1,0 +1,107 @@
+{%- assign img = section.settings.image -%}
+<section id="{{ section.settings.anchor | default: 'detalhes' }}">
+  <div class="wrap tech">
+    <div class="reveal">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow" style="margin-bottom:16px">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="display">{{ section.settings.heading }}</h2>
+
+      {%- assign rows = section.blocks | where: 'type', 'spec' -%}
+      {%- if rows.size > 0 -%}
+        <table class="spec-table">
+          <tbody>
+            {%- for block in rows -%}
+              <tr {{ block.shopify_attributes }}>
+                <th>{{ block.settings.label }}</th>
+                <td>{{ block.settings.value }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      {%- endif -%}
+
+      {%- if section.settings.note != blank -%}
+        <p class="spec-note">{{ section.settings.note }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="reveal">
+      <div class="plate{% if img %} plate--has-image{% endif %}" style="aspect-ratio:4/5;margin-bottom:26px">
+        {%- if img -%}
+          {{ img | image_url: width: 1000 | image_tag:
+               loading: 'lazy', sizes: '(min-width: 900px) 38vw, 100vw',
+               widths: '400,700,1000', class: 'plate-img', alt: img.alt | default: section.settings.heading }}
+        {%- else -%}
+          <div class="note"><span>{{ section.settings.slot_id }}</span><span>{{ section.settings.slot_brief }}</span></div>
+        {%- endif -%}
+      </div>
+
+      {%- assign fits = section.blocks | where: 'type', 'fit' -%}
+      {%- if fits.size > 0 -%}
+        {%- if section.settings.fits_title != blank -%}
+          <p class="eyebrow" style="margin-bottom:14px">{{ section.settings.fits_title }}</p>
+        {%- endif -%}
+        <ul class="fits">
+          {%- for block in fits -%}
+            <li {{ block.shopify_attributes }}>
+              <span>{{ block.settings.label }}</span><span>{{ block.settings.value }}</span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.disclaimer != blank -%}
+        <p class="spec-note" style="font-size:12.5px">{{ section.settings.disclaimer }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TOOLA ficha técnica",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Âncora", "default": "detalhes" },
+    { "type": "text", "id": "eyebrow", "label": "Linha de apoio", "default": "Ficha técnica" },
+    { "type": "html", "id": "heading", "label": "Título", "default": "O que sustenta<br>o acabamento premium." },
+    { "type": "html", "id": "note", "label": "Nota da tabela",
+      "default": "<strong>Sobre a certificação LWG:</strong> padrão reconhecido internacionalmente para a produção responsável do couro, com critérios ambientais e de rastreabilidade dentro da cadeia produtiva." },
+    { "type": "header", "content": "Coluna da direita" },
+    { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "text", "id": "slot_id", "label": "Código do slot", "default": "Foto 04" },
+    { "type": "text", "id": "slot_brief", "label": "Briefing da foto", "default": "Macro · costura e ferragem metálica" },
+    { "type": "text", "id": "fits_title", "label": "Título da lista", "default": "Organiza" },
+    { "type": "textarea", "id": "disclaimer", "label": "Aviso",
+      "default": "Tesouras, pentes, presilhas, pincéis e demais ferramentas apresentadas nas imagens são ilustrativos e não acompanham o produto." }
+  ],
+  "blocks": [
+    { "type": "spec", "name": "Linha da ficha", "settings": [
+      { "type": "text", "id": "label", "label": "Rótulo", "default": "Material" },
+      { "type": "text", "id": "value", "label": "Valor", "default": "Couro com certificação LWG" } ] },
+    { "type": "fit", "name": "Item que organiza", "settings": [
+      { "type": "text", "id": "label", "label": "Item", "default": "Tesouras" },
+      { "type": "text", "id": "value", "label": "Detalhe", "default": "corte e desbaste" } ] }
+  ],
+  "presets": [
+    { "name": "TOOLA ficha técnica", "blocks": [
+      { "type": "spec", "settings": { "label": "Material", "value": "Couro com certificação LWG (Leather Working Group)" } },
+      { "type": "spec", "settings": { "label": "Produção", "value": "Artesanal, peça a peça" } },
+      { "type": "spec", "settings": { "label": "Acabamento", "value": "Premium, com atenção a cada costura e borda" } },
+      { "type": "spec", "settings": { "label": "Ferragens", "value": "Metálicas resistentes · mosquetões na alça" } },
+      { "type": "spec", "settings": { "label": "Dimensões", "value": "25 cm de altura × 18 cm de largura" } },
+      { "type": "spec", "settings": { "label": "Alça", "value": "Ajustável. Uso a tiracolo, na cintura ou no quadril" } },
+      { "type": "spec", "settings": { "label": "Organização", "value": "11 compartimentos para tesouras, pentes, presilhas, pincéis e acessórios" } },
+      { "type": "spec", "settings": { "label": "Cores", "value": "Marrom claro, Marrom escuro, Nude e Preto" } },
+      { "type": "spec", "settings": { "label": "Indicado para", "value": "Cabeleireiros, barbeiros, maquiadores e profissionais da beleza" } },
+      { "type": "spec", "settings": { "label": "Conteúdo da embalagem", "value": "1 bolsa porta-ferramentas TOOLA com alça ajustável" } },
+      { "type": "spec", "settings": { "label": "Garantia", "value": "90 dias, garantia do vendedor" } },
+      { "type": "fit", "settings": { "label": "Tesouras", "value": "corte e desbaste" } },
+      { "type": "fit", "settings": { "label": "Pentes", "value": "compartimento próprio" } },
+      { "type": "fit", "settings": { "label": "Presilhas", "value": "acesso rápido" } },
+      { "type": "fit", "settings": { "label": "Pincéis", "value": "maquiagem e barba" } },
+      { "type": "fit", "settings": { "label": "Acessórios", "value": "bolso frontal" } },
+      { "type": "fit", "settings": { "label": "Total", "value": "11 compartimentos" } } ] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,61 @@
+{%- assign img = section.settings.image -%}
+
+<section class="hero" id="top" data-buybar-trigger style="padding-block:0">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow hero-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1 class="display">{{ section.settings.heading }}</h1>
+      {%- if section.settings.lede != blank -%}
+        <p class="lede">{{ section.settings.lede }}</p>
+      {%- endif -%}
+      <div class="hero-cta">
+        {%- if section.settings.cta1_label != blank -%}
+          <a class="btn btn--onInvert" href="{{ section.settings.cta1_url | default: '#edicoes' }}">{{ section.settings.cta1_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.cta2_label != blank -%}
+          <a class="btn btn--ghost" href="{{ section.settings.cta2_url | default: '#produto' }}">{{ section.settings.cta2_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="hero-art plate{% if img %} plate--has-image{% endif %}">
+      {%- if img -%}
+        {{ img | image_url: width: 1600 | image_tag:
+             loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 900px) 52vw, 100vw',
+             widths: '600,900,1200,1600', class: 'plate-img', alt: img.alt | default: section.settings.heading }}
+      {%- else -%}
+        <div class="note">
+          <span>{{ section.settings.slot_id }}</span>
+          <span>{{ section.settings.slot_brief }}</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TOOLA hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Linha de apoio",
+      "default": "TOOLA ONE · Bolsa porta-ferramentas em couro certificado LWG" },
+    { "type": "html", "id": "heading", "label": "Título",
+      "info": "Use <br> para quebrar linha e <em> para o itálico em cor de areia.",
+      "default": "Tudo o que sua mão procura.<br><em>Onde ela procura.</em>" },
+    { "type": "textarea", "id": "lede", "label": "Texto de apoio",
+      "default": "Criada para profissionais que transformam imagens com as próprias mãos. Cabeleireiros, barbeiros e maquiadores. Ferramentas organizadas, ao alcance, durante todo o atendimento." },
+    { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "header", "content": "Enquanto não há foto" },
+    { "type": "text", "id": "slot_id", "label": "Código do slot", "default": "Foto 01" },
+    { "type": "text", "id": "slot_brief", "label": "Briefing da foto",
+      "default": "Hairstylist em atendimento · luz natural lateral · plano médio" },
+    { "type": "header", "content": "Botões" },
+    { "type": "text", "id": "cta1_label", "label": "Botão principal", "default": "Escolher minha cor" },
+    { "type": "url", "id": "cta1_url", "label": "Link do botão principal" },
+    { "type": "text", "id": "cta2_label", "label": "Botão secundário", "default": "Ver o produto" },
+    { "type": "url", "id": "cta2_url", "label": "Link do botão secundário" }
+  ],
+  "presets": [{ "name": "TOOLA hero" }]
+}
+{% endschema %}
