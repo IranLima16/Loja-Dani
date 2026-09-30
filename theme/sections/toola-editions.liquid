@@ -64,13 +64,12 @@
                     class="ed-btn"
                     data-ed-btn
                     aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
-                    aria-label="Edição {{ block.settings.name }}{% if block.settings.leather != blank %}, {{ block.settings.leather }}{% endif %}"
+                    aria-label="Edição {{ block.settings.name }}"
                     data-ed-hex="{{ block.settings.hex }}"
                     data-ed-name="{{ block.settings.name | escape }}"
                     data-ed-label="{{ pretty | escape }}"
                     data-ed-person="{{ block.settings.person | escape }}"
                     data-ed-desc="{{ block.settings.desc | escape }}"
-                    data-ed-leather="{{ block.settings.leather | escape }}"
                     data-ed-hw="{{ block.settings.hardware | escape }}"
                     data-ed-tag="{% if v_img %}{{ v_img.alt | escape }}{% else %}{{ section.settings.slot_id }} · {{ section.settings.slot_brief }} · edição {{ pretty }}{% endif %}"
                     {% if v %}data-ed-variant="{{ v.id }}"{% endif %}
@@ -85,13 +84,12 @@
           {%- endfor -%}
         </div>
 
-        <h3 class="ed-name" data-ed-name></h3>
-        <p class="ed-person" data-ed-person></p>
-        <p class="ed-desc" data-ed-desc></p>
+        <h3 class="ed-name" data-ed-name-out></h3>
+        <p class="ed-person" data-ed-person-out></p>
+        <p class="ed-desc" data-ed-desc-out></p>
 
         <div class="ed-meta">
-          <div>{{ section.settings.meta1 }}<b data-ed-leather></b></div>
-          <div>{{ section.settings.meta2 }}<b data-ed-hw></b></div>
+          <div>{{ section.settings.meta2 }}<b data-ed-hw-out></b></div>
           {%- if section.settings.meta3 != blank -%}
             <div>{{ section.settings.meta3 }}<b>{{ section.settings.meta3_value }}</b></div>
           {%- endif -%}
@@ -130,7 +128,6 @@
       "default": "A TOOLA ONE chega em quatro couros certificados LWG. Não são variantes. São quatro personalidades de profissional." },
     { "type": "header", "content": "Rótulos" },
     { "type": "text", "id": "picker_label", "label": "Rótulo do seletor", "default": "Escolher edição" },
-    { "type": "text", "id": "meta1", "label": "Rótulo 1", "default": "Couro" },
     { "type": "text", "id": "meta2", "label": "Rótulo 2", "default": "Ferragem" },
     { "type": "text", "id": "meta3", "label": "Rótulo 3", "default": "Produção" },
     { "type": "text", "id": "meta3_value", "label": "Valor do rótulo 3", "default": "Artesanal" },
@@ -146,13 +143,12 @@
       "type": "edition",
       "name": "Edição",
       "settings": [
-        { "type": "text", "id": "name", "label": "Nome exibido", "default": "CARAMELO" },
-        { "type": "text", "id": "option_value", "label": "Valor da variante", "default": "Caramelo",
+        { "type": "text", "id": "name", "label": "Nome exibido", "default": "MARROM" },
+        { "type": "text", "id": "option_value", "label": "Valor da variante", "default": "Marrom",
           "info": "Precisa ser igual ao valor cadastrado no produto." },
         { "type": "color", "id": "hex", "label": "Cor do couro", "default": "#A9714A" },
         { "type": "text", "id": "person", "label": "Frase de destaque", "default": "Para quem transforma o salão em casa." },
         { "type": "textarea", "id": "desc", "label": "Descrição" },
-        { "type": "text", "id": "leather", "label": "Couro", "default": "Marrom claro" },
         { "type": "text", "id": "hardware", "label": "Ferragem", "default": "Metal polido" }
       ]
     }

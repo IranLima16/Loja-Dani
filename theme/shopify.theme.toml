@@ -1,0 +1,5 @@
+# Alvo unico de desenvolvimento. Use sempre "-e dev".
+# O tema publicado da loja (Horizon, #163465691373) nunca e alvo daqui.
+[environments.dev]
+store = "9mfete-tb.myshopify.com"
+theme = "188716024045"

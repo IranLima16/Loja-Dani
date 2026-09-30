@@ -13,11 +13,10 @@
       sw: stage.querySelector('[data-ed-swatch]'),
       tag: stage.querySelector('[data-ed-tag]'),
       img: stage.querySelector('[data-ed-img]'),
-      n: stage.querySelector('[data-ed-name]'),
-      p: stage.querySelector('[data-ed-person]'),
-      d: stage.querySelector('[data-ed-desc]'),
-      l: stage.querySelector('[data-ed-leather]'),
-      h: stage.querySelector('[data-ed-hw]'),
+      n: stage.querySelector('[data-ed-name-out]'),
+      p: stage.querySelector('[data-ed-person-out]'),
+      d: stage.querySelector('[data-ed-desc-out]'),
+      h: stage.querySelector('[data-ed-hw-out]'),
       cta: stage.querySelector('[data-ed-cta]'),
       form: stage.querySelector('[data-ed-variant-input]')
     };
@@ -29,7 +28,6 @@
       if (els.n) els.n.textContent = d.edName || '';
       if (els.p) els.p.textContent = d.edPerson || '';
       if (els.d) els.d.textContent = d.edDesc || '';
-      if (els.l) els.l.textContent = d.edLeather || '';
       if (els.h) els.h.textContent = d.edHw || '';
       if (els.cta) els.cta.textContent = d.edLabel || '';
       if (els.tag) els.tag.textContent = d.edTag || '';
