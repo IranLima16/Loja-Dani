@@ -275,6 +275,14 @@ body{padding-bottom:0}
 .plate--has-image::before,
 .plate--has-image::after{display:none}
 .plate-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-video{position:absolute;inset:0}
+.hero-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* a foto fica por baixo: some assim que o video pinta o primeiro quadro */
+.plate-still{z-index:-1}
+@media(prefers-reduced-motion:reduce){
+  .hero-video video{display:none}
+  .plate-still{z-index:auto}
+}
 
 /* Foto da variante dentro do seletor de edicoes. */
 .ed-view{overflow:hidden}

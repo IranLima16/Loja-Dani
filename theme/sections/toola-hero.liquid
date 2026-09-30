@@ -1,4 +1,7 @@
-{%- assign img = section.settings.image -%}
+{%- liquid
+  assign img = section.settings.image
+  assign vid = section.settings.video
+-%}
 
 <section class="hero" id="top" data-buybar-trigger style="padding-block:0">
   <div class="hero-grid">
@@ -19,8 +22,26 @@
         {%- endif -%}
       </div>
     </div>
-    <div class="hero-art plate{% if img %} plate--has-image{% endif %}">
-      {%- if img -%}
+    <div class="hero-art plate{% if img or vid %} plate--has-image{% endif %}">
+      {%- if vid -%}
+        {%- comment -%}
+          A foto continua obrigatoria: e o cartaz do video (primeiro quadro
+          para quem tem conexao lenta) e o que aparece inteiro para quem
+          pediu menos movimento no sistema. Sem foto, o cartaz e o quadro
+          que a propria Shopify gerou do video.
+        {%- endcomment -%}
+        <div class="hero-video" data-hero-video>
+          {{ vid | video_tag:
+               image_size: '1600x',
+               autoplay: true, loop: true, muted: true, controls: false,
+               class: 'plate-img plate-video' }}
+          {%- if img -%}
+            {{ img | image_url: width: 1600 | image_tag:
+                 loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 900px) 52vw, 100vw',
+                 widths: '600,900,1200,1600', class: 'plate-img plate-still', alt: img.alt | default: section.settings.heading }}
+          {%- endif -%}
+        </div>
+      {%- elsif img -%}
         {{ img | image_url: width: 1600 | image_tag:
              loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 900px) 52vw, 100vw',
              widths: '600,900,1200,1600', class: 'plate-img', alt: img.alt | default: section.settings.heading }}
@@ -46,6 +67,8 @@
     { "type": "textarea", "id": "lede", "label": "Texto de apoio",
       "default": "Criada para profissionais que transformam imagens com as próprias mãos. Cabeleireiros, barbeiros e maquiadores. Ferramentas organizadas, ao alcance, durante todo o atendimento." },
     { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "video", "id": "video", "label": "Vídeo",
+      "info": "Substitui a foto. Roda sozinho, em loop e sem som. A foto acima vira o cartaz e e o que aparece para quem pediu menos movimento no sistema." },
     { "type": "header", "content": "Enquanto não há foto" },
     { "type": "text", "id": "slot_id", "label": "Código do slot", "default": "Foto 01" },
     { "type": "text", "id": "slot_brief", "label": "Briefing da foto",
