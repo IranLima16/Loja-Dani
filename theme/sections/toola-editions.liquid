@@ -30,7 +30,7 @@
       {%- if section.settings.lede != blank -%}<p class="lede">{{ section.settings.lede }}</p>{%- endif -%}
     </div>
 
-    <div class="ed-stage reveal" data-ed-stage>
+    <div class="ed-stage reveal" data-ed-stage data-ed-sold-label="{{ section.settings.sold_label | escape }}">
       <div class="ed-view">
         <div class="ed-swatch" data-ed-swatch></div>
         {%- comment -%}
@@ -64,6 +64,7 @@
                     class="ed-btn"
                     data-ed-btn
                     aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                    {% if v and v.available == false %}data-ed-sold{% endif %}
                     aria-label="Edição {{ block.settings.name }}"
                     data-ed-hex="{{ block.settings.hex }}"
                     data-ed-name="{{ block.settings.name | escape }}"
@@ -72,7 +73,11 @@
                     data-ed-desc="{{ block.settings.desc | escape }}"
                     data-ed-hw="{{ block.settings.hardware | escape }}"
                     data-ed-tag="{% if v_img %}{{ v_img.alt | escape }}{% else %}{{ section.settings.slot_id }} · {{ section.settings.slot_brief }} · edição {{ pretty }}{% endif %}"
-                    {% if v %}data-ed-variant="{{ v.id }}"{% endif %}
+                    {% if v %}data-ed-variant="{{ v.id }}"
+                      data-ed-avail="{% if v.available %}1{% else %}0{% endif %}"
+                      data-ed-price="{{ v.price | money }}"
+                      {% if v.compare_at_price > v.price %}data-ed-was="{{ v.compare_at_price | money }}"{% endif %}
+                    {% endif %}
                     {% if v_img %}
                       data-ed-image="{{ v_img | image_url: width: 1200 }}"
                       data-ed-image-srcset="{{ v_img | image_url: width: 600 }} 600w, {{ v_img | image_url: width: 900 }} 900w, {{ v_img | image_url: width: 1200 }} 1200w"
@@ -89,6 +94,7 @@
         <p class="ed-desc" data-ed-desc-out></p>
 
         <div class="ed-meta">
+          <div>{{ section.settings.price_label }}<b><span data-ed-price-out></span><s class="was" data-ed-was-out hidden></s></b></div>
           <div>{{ section.settings.meta2 }}<b data-ed-hw-out></b></div>
           {%- if section.settings.meta3 != blank -%}
             <div>{{ section.settings.meta3 }}<b>{{ section.settings.meta3_value }}</b></div>
@@ -98,9 +104,15 @@
         {%- if product != blank -%}
           {%- form 'product', product, id: 'toola-editions-form' -%}
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-ed-variant-input>
-            <button type="submit" class="btn btn--onInvert">
-              {{ section.settings.cta_label }} <span data-ed-cta></span>
-            </button>
+            <div class="ed-buy">
+              <div class="ed-qty">
+                <label for="toola-qty">{{ section.settings.qty_label }}</label>
+                <input id="toola-qty" type="number" name="quantity" value="1" min="1" step="1" inputmode="numeric">
+              </div>
+              <button type="submit" class="btn btn--onInvert" data-ed-submit>
+                <span data-ed-cta-label>{{ section.settings.cta_label }}</span> <span data-ed-cta></span>
+              </button>
+            </div>
           {%- endform -%}
         {%- else -%}
           <a class="btn btn--onInvert" href="{{ section.settings.cta_url | default: '#comprar' }}">
@@ -128,6 +140,9 @@
       "default": "A TOOLA ONE chega em quatro couros certificados LWG. Não são variantes. São quatro personalidades de profissional." },
     { "type": "header", "content": "Rótulos" },
     { "type": "text", "id": "picker_label", "label": "Rótulo do seletor", "default": "Escolher edição" },
+    { "type": "text", "id": "price_label", "label": "Rótulo do preço", "default": "Preço" },
+    { "type": "text", "id": "qty_label", "label": "Rótulo da quantidade", "default": "Quantidade" },
+    { "type": "text", "id": "sold_label", "label": "Rótulo de esgotado", "default": "Esgotado" },
     { "type": "text", "id": "meta2", "label": "Rótulo 2", "default": "Ferragem" },
     { "type": "text", "id": "meta3", "label": "Rótulo 3", "default": "Produção" },
     { "type": "text", "id": "meta3_value", "label": "Valor do rótulo 3", "default": "Artesanal" },

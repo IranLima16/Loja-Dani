@@ -15,6 +15,9 @@
       <div class="price">
         {%- if variant -%}
           <span class="v">{{ variant.price | money }}</span>
+          {%- if variant.compare_at_price > variant.price -%}
+            <s class="was">{{ variant.compare_at_price | money }}</s>
+          {%- endif -%}
         {%- elsif section.settings.price_fallback != blank -%}
           <span class="v">{{ section.settings.price_fallback }}</span>
         {%- endif -%}
@@ -56,6 +59,7 @@
       {{ section.settings.buybar_title }}
       <b>
         {%- if variant -%}{{ variant.price | money }}
+          {%- if variant.compare_at_price > variant.price %} <s class="was">{{ variant.compare_at_price | money }}</s>{% endif -%}
         {%- else -%}{{ section.settings.price_fallback }}{%- endif -%}
       </b>
     </div>

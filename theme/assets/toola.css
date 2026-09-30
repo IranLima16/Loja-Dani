@@ -176,6 +176,14 @@ section{padding-block:var(--section)}
 .ed-meta b{display:block;font-family:var(--display);font-size:20px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--invert-fg)}
 .ed-picker{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap}
 .ed-btn{width:56px;height:56px;border:1px solid var(--invert-rule);background:transparent;padding:5px;cursor:pointer;transition:border-color .25s,transform .25s}
+.ed-meta b .was,.price .was,.buybar .bp .was{font-size:.62em;color:var(--invert-mute);text-decoration:line-through;margin-left:8px;font-family:var(--sans);letter-spacing:.02em}
+.ed-btn[data-ed-sold]{position:relative;opacity:.45}
+.ed-btn[data-ed-sold]::after{content:"";position:absolute;inset:0;background:linear-gradient(to top left,transparent calc(50% - 1px),var(--invert-fg) calc(50% - 1px),var(--invert-fg) calc(50% + 1px),transparent calc(50% + 1px))}
+.ed-buy{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px}
+.ed-qty label{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--invert-mute);margin-bottom:7px}
+.ed-qty input{width:74px;padding:13px 12px;background:transparent;border:1px solid var(--invert-rule);color:var(--invert-fg);font-family:var(--sans);font-size:15px;text-align:center}
+.ed-qty input:focus-visible{outline:1px solid var(--invert-fg);outline-offset:1px}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
 .ed-btn i{display:block;width:100%;height:100%}
 .ed-btn:hover{transform:translateY(-2px)}
 .ed-btn[aria-pressed="true"]{border-color:var(--accent)}

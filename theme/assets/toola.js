@@ -17,6 +17,10 @@
       p: stage.querySelector('[data-ed-person-out]'),
       d: stage.querySelector('[data-ed-desc-out]'),
       h: stage.querySelector('[data-ed-hw-out]'),
+      price: stage.querySelector('[data-ed-price-out]'),
+      was: stage.querySelector('[data-ed-was-out]'),
+      submit: stage.querySelector('[data-ed-submit]'),
+      ctaLabel: stage.querySelector('[data-ed-cta-label]'),
       cta: stage.querySelector('[data-ed-cta]'),
       form: stage.querySelector('[data-ed-variant-input]')
     };
@@ -29,6 +33,25 @@
       if (els.p) els.p.textContent = d.edPerson || '';
       if (els.d) els.d.textContent = d.edDesc || '';
       if (els.h) els.h.textContent = d.edHw || '';
+      if (els.price) els.price.textContent = d.edPrice || '';
+      if (els.was) {
+        els.was.textContent = d.edWas || '';
+        els.was.hidden = !d.edWas;
+      }
+      // sem data-ed-avail a variante nao foi encontrada: o botao ja fica fora
+      var sold = d.edAvail === '0';
+      if (els.submit) {
+        els.submit.disabled = sold;
+        els.submit.setAttribute('aria-disabled', sold ? 'true' : 'false');
+      }
+      if (els.ctaLabel) {
+        if (sold) {
+          if (!els.ctaLabel.dataset.orig) els.ctaLabel.dataset.orig = els.ctaLabel.textContent;
+          els.ctaLabel.textContent = stage.dataset.edSoldLabel || 'Esgotado';
+        } else if (els.ctaLabel.dataset.orig) {
+          els.ctaLabel.textContent = els.ctaLabel.dataset.orig;
+        }
+      }
       if (els.cta) els.cta.textContent = d.edLabel || '';
       if (els.tag) els.tag.textContent = d.edTag || '';
       if (els.form && d.edVariant) els.form.value = d.edVariant;
