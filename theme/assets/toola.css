@@ -51,6 +51,10 @@
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+/* O Dawn poe .gradient no body com fundo branco fixo. Seletor de classe
+   vence seletor de elemento, entao no modo escuro o texto virava claro e
+   o fundo continuava branco. Reempatamos a especificidade. */
+body.gradient{background:var(--bg);color:var(--fg)}
 img{max-width:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
