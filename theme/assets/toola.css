@@ -55,6 +55,10 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-
    vence seletor de elemento, entao no modo escuro o texto virava claro e
    o fundo continuava branco. Reempatamos a especificidade. */
 body.gradient{background:var(--bg);color:var(--fg)}
+/* O Dawn tambem fixa a cor dos titulos (h1-h5) em preto. No modo escuro o
+   fundo escurece e o titulo some. Herdar a cor da secao resolve; regras com
+   classe (ex.: .hero h1) continuam vencendo. */
+main :is(h1,h2,h3,h4,h5){color:inherit}
 img{max-width:100%}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
