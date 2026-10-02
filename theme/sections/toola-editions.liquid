@@ -95,10 +95,11 @@
 
         <div class="ed-meta">
           <div>{{ section.settings.price_label }}<b><span data-ed-price-out></span><s class="was" data-ed-was-out hidden></s></b></div>
-          <div>{{ section.settings.meta2 }}<b data-ed-hw-out></b></div>
           {%- if section.settings.meta3 != blank -%}
             <div>{{ section.settings.meta3 }}<b>{{ section.settings.meta3_value }}</b></div>
           {%- endif -%}
+          {%- comment -%} Ferragem por ultimo: o valor muda de tamanho entre as cores e, na ponta, nao empurra os outros. {%- endcomment -%}
+          <div>{{ section.settings.meta2 }}<b data-ed-hw-out></b></div>
         </div>
 
         {%- if product != blank -%}
