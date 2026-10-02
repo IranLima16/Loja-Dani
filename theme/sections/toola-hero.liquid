@@ -35,8 +35,9 @@
                image_size: '1600x',
                autoplay: true, loop: true, muted: true, controls: false,
                class: 'plate-img plate-video' }}
-          {%- if img -%}
-            {{ img | image_url: width: 1600 | image_tag:
+          {%- assign still = img | default: vid.preview_image -%}
+          {%- if still -%}
+            {{ still | image_url: width: 1600 | image_tag:
                  loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 900px) 52vw, 100vw',
                  widths: '600,900,1200,1600', class: 'plate-img plate-still', alt: img.alt | default: section.settings.heading }}
           {%- endif -%}
