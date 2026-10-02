@@ -1,8 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "toola-hero",
-      "settings": {}
+      "settings": {
+        "eyebrow": "TOOLA ONE · Bolsa porta-ferramentas em couro certificado LWG",
+        "heading": "Tudo o que sua mão procura.<br><em>Onde ela procura.</em>",
+        "lede": "Criada para profissionais que transformam imagens com as próprias mãos. Cabeleireiros, barbeiros e maquiadores. Ferramentas organizadas, ao alcance, durante todo o atendimento.",
+        "video": "shopify://files/videos/video-teste.mp4",
+        "slot_id": "Foto 01",
+        "slot_brief": "Hairstylist em atendimento · luz natural lateral · plano médio",
+        "cta1_label": "Escolher minha cor",
+        "cta1_url": "",
+        "cta2_label": "Ver o produto",
+        "cta2_url": ""
+      }
     },
     "strip": {
       "type": "toola-strip",
@@ -46,7 +66,15 @@
     },
     "marca": {
       "type": "toola-manifesto",
-      "settings": {}
+      "settings": {
+        "anchor": "marca",
+        "eyebrow": "A marca",
+        "heading": "Para quem transforma<br>imagens com as<br>próprias mãos.",
+        "first": "A TOOLA une funcionalidade, design e estilo em um acessório desenvolvido para acompanhar a rotina de cabeleireiros, barbeiros e maquiadores.",
+        "text": "Mais do que carregar ferramentas, ela foi criada para fazer parte da imagem e da identidade do profissional.",
+        "sig": "Crafted with purpose. Designed for your craft.",
+        "rule": true
+      }
     },
     "produto": {
       "type": "toola-statement",
@@ -82,7 +110,18 @@
         "m3",
         "m4"
       ],
-      "settings": {}
+      "settings": {
+        "anchor": "produto",
+        "eyebrow": "O produto",
+        "heading": "Nenhuma pausa<br>para procurar.",
+        "lede": "No formato que a rotina do atendimento pede: suas ferramentas sempre ao alcance, com liberdade para criar.",
+        "image": "shopify://shop_images/Foto_02_-_3_4.png",
+        "image_mobile": "shopify://shop_images/Foto_02_-_4_5.png",
+        "slot_id": "Foto 02",
+        "slot_brief": "TOOLA ONE em uso · plano médio · luz natural",
+        "cta_label": "Confira os modelos",
+        "cta_url": ""
+      }
     },
     "edicoes": {
       "type": "toola-editions",
@@ -92,7 +131,7 @@
           "settings": {
             "name": "MARROM CLARO",
             "option_value": "Marrom claro",
-            "hex": "#A9714A",
+            "hex": "#a9714a",
             "person": "Para quem transforma o salão em casa.",
             "desc": "O couro que mais muda com o tempo. Começa quente, escurece nas dobras, guarda o desenho da sua rotina. Para o profissional que recebe, conversa e faz o cliente querer ficar.",
             "hardware": "Metal polido"
@@ -103,7 +142,7 @@
           "settings": {
             "name": "MARROM ESCURO",
             "option_value": "Marrom Escuro",
-            "hex": "#4B3327",
+            "hex": "#4b3327",
             "person": "Para quem faz do ofício uma tradição.",
             "desc": "O couro mais sóbrio da linha. A edição de quem trabalha há tempo suficiente para não precisar de novidade, e de quem quer uma peça que atravesse o dia a dia sem se entregar.",
             "hardware": "Metal escovado"
@@ -114,7 +153,7 @@
           "settings": {
             "name": "NUDE",
             "option_value": "Nude",
-            "hex": "#D6B89C",
+            "hex": "#d6b89c",
             "person": "Para quem trabalha com luz e espaço.",
             "desc": "O couro mais claro e mais honesto: mostra a veia, o poro e a marca de cada dia de trabalho. Pensada para salões claros, onde a ferramenta acompanha o ambiente em vez de brigar com ele.",
             "hardware": "Metal polido"
@@ -125,7 +164,7 @@
           "settings": {
             "name": "PRETO",
             "option_value": "Preto",
-            "hex": "#1A1A1A",
+            "hex": "#1a1a1a",
             "person": "Para quem não precisa dizer nada.",
             "desc": "Couro preto, ferragem escurecida, costura tom sobre tom. A edição do profissional clássico, aquele cuja assinatura está no corte, não no acessório. Some no preto do uniforme e aparece só no detalhe.",
             "hardware": "Metal escurecido"
@@ -139,7 +178,23 @@
         "e4"
       ],
       "settings": {
-        "product": "toola-one-bolsa-porta-tesoura-pente-para-cabeleireiroa"
+        "anchor": "edicoes",
+        "product": "toola-one-bolsa-porta-tesoura-pente-para-cabeleireiroa",
+        "option_name": "Cor",
+        "eyebrow": "As quatro edições",
+        "heading": "Encontre a cor que combina<br>com a sua assinatura",
+        "lede": "A TOOLA ONE chega em quatro couros certificados LWG. Não são variantes. São quatro personalidades de profissional.",
+        "picker_label": "Escolher edição",
+        "price_label": "Preço",
+        "qty_label": "Quantidade",
+        "sold_label": "Esgotado",
+        "meta2": "Ferragem",
+        "meta3": "Produção",
+        "meta3_value": "Artesanal",
+        "cta_label": "Comprar a edição",
+        "cta_url": "",
+        "slot_id": "Foto 03",
+        "slot_brief": "Still de produto · fundo concreto"
       }
     },
     "detalhes": {
@@ -284,7 +339,17 @@
         "f5",
         "f6"
       ],
-      "settings": {}
+      "settings": {
+        "anchor": "detalhes",
+        "eyebrow": "Ficha técnica",
+        "heading": "O que sustenta<br>o acabamento premium.",
+        "note": "<strong>Sobre a certificação LWG:</strong> padrão reconhecido internacionalmente para a produção responsável do couro, com critérios ambientais e de rastreabilidade dentro da cadeia produtiva.",
+        "image": "shopify://shop_images/Foto_04.png",
+        "slot_id": "Foto 04",
+        "slot_brief": "Macro · costura e ferragem metálica",
+        "fits_title": "Organiza",
+        "disclaimer": "Tesouras, pentes, presilhas, pincéis e demais ferramentas apresentadas nas imagens são ilustrativos e não acompanham o produto."
+      }
     },
     "comprar": {
       "type": "toola-final",
@@ -300,7 +365,20 @@
         "a1"
       ],
       "settings": {
-        "product": "toola-one-bolsa-porta-tesoura-pente-para-cabeleireiroa"
+        "anchor": "comprar",
+        "product": "toola-one-bolsa-porta-tesoura-pente-para-cabeleireiroa",
+        "eyebrow": "TOOLA ONE",
+        "heading": "Escolha a que combina<br>com o seu jeito de criar.",
+        "price_fallback": "R$ 343,50",
+        "price_note": "ou 6× de R$ 57,25 sem juros",
+        "cta_label": "Escolher minha cor",
+        "cta_url": "",
+        "image": "shopify://shop_images/Foto_05.png",
+        "slot_id": "Foto 05",
+        "slot_brief": "As quatro edições juntas · vista superior",
+        "show_buybar": true,
+        "buybar_title": "TOOLA ONE",
+        "buybar_cta": "Escolher minha cor"
       }
     }
   },
