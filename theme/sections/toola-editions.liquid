@@ -22,7 +22,12 @@
   assign opt_pos = opt_index | minus: 1
 -%}
 
-<section class="editions" id="{{ section.settings.anchor | default: 'edicoes' }}">
+{%- comment -%}
+  A ancora (#edicoes) fica no conjunto foto + informacoes, nao no topo da
+  secao: os botoes "Escolher minha cor" do site pousam com a foto e o seletor
+  alinhados, em vez de cortar a foto no pe da tela.
+{%- endcomment -%}
+<section class="editions" id="{{ section.settings.anchor | default: 'edicoes' }}-secao">
   <div class="wrap">
     <div class="section-head reveal">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
@@ -30,7 +35,7 @@
       {%- if section.settings.lede != blank -%}<p class="lede">{{ section.settings.lede }}</p>{%- endif -%}
     </div>
 
-    <div class="ed-stage reveal" data-ed-stage data-ed-sold-label="{{ section.settings.sold_label | escape }}">
+    <div class="ed-stage reveal" id="{{ section.settings.anchor | default: 'edicoes' }}" data-ed-stage data-ed-sold-label="{{ section.settings.sold_label | escape }}">
       <div class="ed-view">
         <div class="ed-swatch" data-ed-swatch></div>
         {%- comment -%}
