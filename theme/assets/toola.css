@@ -320,7 +320,11 @@ body{padding-bottom:0}
 
 /* O botao de compra da secao de edicoes e um <button> dentro de <form>. */
 .ed-stage form{margin:0}
-.ed-stage .btn{border:1px solid transparent;font-family:var(--sans)}
+.ed-stage .btn{border:1px solid transparent;font-family:var(--sans);gap:0}
+/* "Comprar a edicao" e o nome da cor sao dois itens do flex do .btn, e o gap
+   de .7em (pensado para texto + seta) abria um buraco maior que um espaco.
+   Um espaco de palavra de verdade mantem o texto continuo. */
+.ed-cta-l::after{content:"\00a0"}
 
 /* O Dawn define estilos proprios de link e lista no rodape. */
 footer .foot-grid a{text-decoration:none;color:inherit}

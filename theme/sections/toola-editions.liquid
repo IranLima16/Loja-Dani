@@ -111,13 +111,13 @@
                 <input id="toola-qty" type="number" name="quantity" value="1" min="1" step="1" inputmode="numeric">
               </div>
               <button type="submit" class="btn btn--onInvert" data-ed-submit>
-                <span data-ed-cta-label>{{ section.settings.cta_label }}</span> <span data-ed-cta></span>
+                <span class="ed-cta-l" data-ed-cta-label>{{ section.settings.cta_label }}</span><span data-ed-cta></span>
               </button>
             </div>
           {%- endform -%}
         {%- else -%}
           <a class="btn btn--onInvert" href="{{ section.settings.cta_url | default: '#comprar' }}">
-            {{ section.settings.cta_label }} <span data-ed-cta></span>
+            <span class="ed-cta-l">{{ section.settings.cta_label }}</span><span data-ed-cta></span>
           </a>
           <p class="ed-warn">Escolha o produto nas opções desta seção para habilitar a compra.</p>
         {%- endif -%}
