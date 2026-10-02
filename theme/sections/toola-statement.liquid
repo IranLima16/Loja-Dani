@@ -1,11 +1,25 @@
+{%- comment -%}
+  Duas fotos: a do desktop (3:4) e, opcional, a do celular (4:5). A troca
+  acontece em 900px, o mesmo ponto em que o CSS muda a proporcao da caixa.
+  Se so uma estiver escolhida, ela vale para os dois.
+{%- endcomment -%}
 {%- assign img = section.settings.image -%}
+{%- assign img_m = section.settings.image_mobile -%}
+{%- assign img_main = img | default: img_m -%}
 <section id="{{ section.settings.anchor | default: 'produto' }}">
   <div class="wrap statement">
-    <div class="statement-art plate reveal{% if img %} plate--has-image{% endif %}">
-      {%- if img -%}
-        {{ img | image_url: width: 1200 | image_tag:
-             loading: 'lazy', sizes: '(min-width: 900px) 46vw, 100vw',
-             widths: '500,800,1200', class: 'plate-img', alt: img.alt | default: section.settings.heading }}
+    <div class="statement-art plate reveal{% if img_main %} plate--has-image{% endif %}">
+      {%- if img_main -%}
+        <picture>
+          {%- if img and img_m -%}
+            <source media="(max-width: 899px)"
+                    srcset="{{ img_m | image_url: width: 600 }} 600w, {{ img_m | image_url: width: 900 }} 900w, {{ img_m | image_url: width: 1200 }} 1200w"
+                    sizes="100vw">
+          {%- endif -%}
+          {{ img_main | image_url: width: 1200 | image_tag:
+               loading: 'lazy', sizes: '(min-width: 900px) 46vw, 100vw',
+               widths: '500,800,1200', class: 'plate-img', alt: img_main.alt | default: section.settings.heading }}
+        </picture>
       {%- else -%}
         <div class="note"><span>{{ section.settings.slot_id }}</span><span>{{ section.settings.slot_brief }}</span></div>
       {%- endif -%}
@@ -37,7 +51,9 @@
     { "type": "html", "id": "heading", "label": "Título", "default": "Nenhuma pausa<br>para procurar." },
     { "type": "textarea", "id": "lede", "label": "Texto de apoio",
       "default": "No formato que a rotina do atendimento pede: suas ferramentas sempre ao alcance, com liberdade para criar." },
-    { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "image_picker", "id": "image", "label": "Foto (desktop, 3:4)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Foto do celular (4:5, opcional)",
+      "info": "Se ficar vazia, a foto do desktop vale para o celular." },
     { "type": "header", "content": "Enquanto não há foto" },
     { "type": "text", "id": "slot_id", "label": "Código do slot", "default": "Foto 02" },
     { "type": "text", "id": "slot_brief", "label": "Briefing da foto", "default": "TOOLA ONE em uso · plano médio · luz natural" },
