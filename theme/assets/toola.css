@@ -280,6 +280,9 @@ section{padding-block:var(--section)}
 .assure li::before{content:"·";color:var(--accent);margin-right:10px}
 .final .plate{aspect-ratio:1/1}
 @media(min-width:900px){.final-grid{grid-template-columns:1fr 1fr}}
+/* No celular a foto das quatro edicoes vem antes do texto e do convite de compra
+   (as duas ficam empilhadas). No desktop continuam lado a lado. */
+@media(max-width:899px){.final .plate{order:-1}}
 
 /* ---------- footer ---------- */
 footer{background:var(--invert-bg);color:var(--invert-mute);border-top:1px solid var(--invert-rule);padding-block:clamp(44px,6vw,72px) 34px;font-size:13px}
