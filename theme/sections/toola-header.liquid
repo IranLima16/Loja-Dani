@@ -14,7 +14,12 @@
     </nav>
     <div class="nav-right">
       <a href="{{ routes.search_url }}">Buscar</a>
-      <a href="{{ routes.cart_url }}">Sacola ({{ cart.item_count }})</a>
+      {%- comment -%}
+        id="cart-icon-bubble": o JS do carrinho (cart.js) atualiza este elemento a cada
+        mudanca de quantidade. Sem ele, a atualizacao quebra no meio e o total fica
+        desatualizado. O conteudo vem de sections/cart-icon-bubble.liquid (mesmo texto).
+      {%- endcomment -%}
+      <a href="{{ routes.cart_url }}" id="cart-icon-bubble">Sacola ({{ cart.item_count }})</a>
     </div>
   </div>
 </header>
