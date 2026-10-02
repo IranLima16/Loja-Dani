@@ -34,13 +34,15 @@
   --gutter:clamp(20px,5vw,72px);
   --section:clamp(88px,11vw,168px);
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#141312; --surface:#1B1917; --fg:#EFEAE3; --fg-soft:#C8C1B8; --fg-mute:#8F887F;
-    --rule:rgba(239,234,227,.16); --rule-soft:rgba(239,234,227,.08);
-    --accent:#C79567;
-    --invert-bg:#0C0B0A; --invert-fg:#EFEAE3; --invert-mute:#8F887F; --invert-rule:rgba(239,234,227,.14);
-  }
+/* A loja e sempre escura, qualquer que seja o modo do sistema do visitante.
+   (Antes isto ficava dentro de @media (prefers-color-scheme:dark).) Para voltar
+   ao claro, basta <html data-theme="light">. */
+:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#141312; --surface:#1B1917; --fg:#EFEAE3; --fg-soft:#C8C1B8; --fg-mute:#8F887F;
+  --rule:rgba(239,234,227,.16); --rule-soft:rgba(239,234,227,.08);
+  --accent:#C79567;
+  --invert-bg:#0C0B0A; --invert-fg:#EFEAE3; --invert-mute:#8F887F; --invert-rule:rgba(239,234,227,.14);
 }
 :root[data-theme="dark"]{
   --bg:#141312; --surface:#1B1917; --fg:#EFEAE3; --fg-soft:#C8C1B8; --fg-mute:#8F887F;
