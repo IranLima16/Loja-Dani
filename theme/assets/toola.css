@@ -190,6 +190,11 @@ section{padding-block:var(--section)}
 .editions h2{font-size:clamp(34px,5vw,64px);color:var(--invert-fg)}
 .ed-stage{display:grid;gap:clamp(26px,4vw,56px);align-items:center}
 .ed-stage{scroll-margin-top:16px}
+/* O conjunto foto + informacoes e o destino dos botoes "Escolher minha cor". A
+   animacao de entrada o empurra 16px para baixo (translateY) ate terminar; o
+   navegador calcula o pouso com ele nessa posicao e, quando a animacao acaba, a
+   foto sobe 16px e fica colada no topo (so na primeira vez). Aqui so o fade. */
+.editions .ed-stage.reveal,.js .editions .ed-stage.reveal{transform:none}
 /* Ao clicar em "Escolher minha cor" a pagina pousa com a foto no topo da tela
    (16px de folga), sem o titulo da secao. No desktop a foto 4:5 nunca passa da
    altura da tela: largura de ate 560px, menor se a janela for baixa (minimo
