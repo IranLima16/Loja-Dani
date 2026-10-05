@@ -79,13 +79,23 @@
   }
 
   /* ---------- barra de compra fixa no mobile ---------- */
+  /* Barra fixa do celular: leva o cliente para a escolha da cor. Ela so faz sentido
+     fora de tres lugares, onde fica escondida: no topo (o hero ja tem o botao), na
+     propria escolha de cor (o botao da barra nao faria nada) e no bloco final (que
+     tem o proprio botao). */
   function initBuybar() {
     var bar = document.querySelector('[data-buybar]');
-    var top = document.querySelector('[data-buybar-trigger]');
-    if (!bar || !top || !('IntersectionObserver' in window)) return;
-    new IntersectionObserver(function (es) {
-      es.forEach(function (en) { bar.classList.toggle('on', !en.isIntersecting); });
-    }, { threshold: 0 }).observe(top);
+    var hero = document.querySelector('[data-buybar-trigger]');
+    if (!bar || !hero || !('IntersectionObserver' in window)) return;
+    var zonas = [hero, document.querySelector('[data-ed-stage]'), document.querySelector('.final-grid')]
+      .filter(Boolean);
+    var visivel = new Map();
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) { visivel.set(en.target, en.isIntersecting); });
+      var alguma = zonas.some(function (z) { return visivel.get(z); });
+      bar.classList.toggle('on', !alguma);
+    }, { threshold: 0 });
+    zonas.forEach(function (z) { io.observe(z); });
   }
 
   /* ---------- animacao de entrada ---------- */
