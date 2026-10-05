@@ -6,7 +6,20 @@
 
 <header class="nav">
   <div class="wrap nav-in">
-    <a class="brand" href="{{ routes.root_url }}">{{ section.settings.brand | default: shop.name }}</a>
+    {%- comment -%}
+      Logo ao lado esquerdo do nome. Se nenhuma imagem for escolhida no editor, usa
+      assets/toola-logo.png. O logo tem fundo transparente e relevo marrom, que some
+      no cabecalho escuro, por isso o CSS o coloca num disco claro. alt vazio: o nome
+      da marca ja esta escrito ao lado, e o leitor de tela leria duas vezes.
+    {%- endcomment -%}
+    <a class="brand" href="{{ routes.root_url }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 240 | image_tag: class: 'brand-logo', alt: '', width: 40, height: 40, loading: 'eager', widths: '120,240' }}
+      {%- else -%}
+        <img class="brand-logo" src="{{ 'toola-logo.png' | asset_url }}" alt="" width="40" height="40" loading="eager">
+      {%- endif -%}
+      <span>{{ section.settings.brand | default: shop.name }}</span>
+    </a>
     <nav class="nav-links">
       {%- for link in section.settings.menu.links -%}
         <a href="{{ link.url }}">{{ link.title }}</a>
@@ -33,6 +46,12 @@
       "id": "brand",
       "label": "Marca",
       "default": "TOOLA"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (opcional)",
+      "info": "Quadrado, com fundo transparente. Se ficar vazio, usa o logo do tema."
     },
     {
       "type": "html",
