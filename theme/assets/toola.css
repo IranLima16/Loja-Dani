@@ -177,6 +177,7 @@ section{padding-block:var(--section)}
 
 /* ---------- product statement ---------- */
 .statement{display:grid;gap:clamp(30px,4vw,68px);align-items:center}
+.statement{scroll-margin-top:16px}
 .statement-art{aspect-ratio:4/5}
 .statement-copy{display:flex;flex-direction:column;align-items:flex-start;gap:22px}
 .statement-copy h2{font-size:clamp(36px,4.8vw,62px)}

@@ -6,8 +6,13 @@
 {%- assign img = section.settings.image -%}
 {%- assign img_m = section.settings.image_mobile -%}
 {%- assign img_main = img | default: img_m -%}
-<section id="{{ section.settings.anchor | default: 'produto' }}">
-  <div class="wrap statement">
+{%- comment -%}
+  A ancora (#produto) fica no conjunto foto + texto, nao no topo da secao (que
+  comeca com muito espaco vazio): o botao "Ver o produto" pousa com a foto
+  alinhada. O alvo e o .wrap, que nao tem animacao de entrada (os filhos tem).
+{%- endcomment -%}
+<section id="{{ section.settings.anchor | default: 'produto' }}-secao">
+  <div class="wrap statement" id="{{ section.settings.anchor | default: 'produto' }}">
     <div class="statement-art plate reveal{% if img_main %} plate--has-image{% endif %}">
       {%- if img_main -%}
         <picture>
