@@ -3,7 +3,7 @@
     <div class="foot-grid">
       <div>
         <div class="brand" style="color:var(--invert-fg);display:inline-block;margin-bottom:14px">
-          {{ section.settings.brand | default: shop.name }}
+          {{ section.settings.brand | default: 'TOOLA HANDMADE' }}
         </div>
         {%- if section.settings.about != blank -%}
           <p style="margin:0;max-width:34ch">{{ section.settings.about }}</p>
@@ -19,8 +19,32 @@
         <div {{ block.shopify_attributes }}>
           <h4>{{ block.settings.title }}</h4>
           <ul>
-            {%- for link in block.settings.menu.links -%}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- comment -%}
+              Cada coluna tem ate 5 links (rotulo + endereco). Link sem endereco nao aparece.
+              Politica ou pagina que ainda nao existe na loja tambem nao aparece, para nao
+              levar o cliente a um erro 404. Quando for criada no admin, o link surge sozinho.
+            {%- endcomment -%}
+            {%- for i in (1..5) -%}
+              {%- assign k_label = 'l' | append: i | append: '_label' -%}
+              {%- assign k_url = 'l' | append: i | append: '_url' -%}
+              {%- assign l_label = block.settings[k_label] -%}
+              {%- assign l_url = block.settings[k_url] -%}
+              {%- assign l_ok = false -%}
+              {%- if l_label != blank and l_url != blank -%}
+                {%- assign l_ok = true -%}
+                {%- if l_url contains '/policies/' -%}
+                  {%- assign l_ok = false -%}
+                  {%- for pol in shop.policies -%}
+                    {%- if pol.url == l_url -%}{%- assign l_ok = true -%}{%- endif -%}
+                  {%- endfor -%}
+                {%- elsif l_url contains '/pages/' -%}
+                  {%- assign l_handle = l_url | split: '/pages/' | last -%}
+                  {%- if pages[l_handle].title == blank -%}{%- assign l_ok = false -%}{%- endif -%}
+                {%- endif -%}
+              {%- endif -%}
+              {%- if l_ok -%}
+                <li><a href="{{ l_url }}"{% if l_url contains 'http' %} target="_blank" rel="noopener"{% endif %}>{{ l_label }}</a></li>
+              {%- endif -%}
             {%- endfor -%}
           </ul>
         </div>
@@ -29,7 +53,12 @@
 
     <div class="foot-bot">
       <span>&copy; {{ 'now' | date: '%Y' }} {{ section.settings.legal | default: shop.name }}</span>
-      {%- if section.settings.policies != blank -%}<span>{{ section.settings.policies }}</span>{%- endif -%}
+      <span>
+        {%- assign sep = false -%}
+        {%- if shop.privacy_policy != blank -%}<a href="{{ shop.privacy_policy.url }}">Privacidade</a>{%- assign sep = true -%}{%- endif -%}
+        {%- if shop.terms_of_service != blank -%}{% if sep %} · {% endif %}<a href="{{ shop.terms_of_service.url }}">Termos</a>{%- assign sep = true -%}{%- endif -%}
+        {%- if shop.refund_policy != blank -%}{% if sep %} · {% endif %}<a href="{{ shop.refund_policy.url }}">Trocas</a>{%- endif -%}
+      </span>
     </div>
   </div>
 </footer>
@@ -39,18 +68,27 @@
   "name": "TOOLA rodapé",
   "max_blocks": 3,
   "settings": [
-    { "type": "text", "id": "brand", "label": "Marca", "default": "TOOLA" },
+    { "type": "text", "id": "brand", "label": "Marca", "default": "TOOLA HANDMADE" },
     { "type": "textarea", "id": "about", "label": "Sobre",
       "default": "Bags & accessories para profissionais da beleza. Couro certificado LWG, produção artesanal." },
     { "type": "html", "id": "sig", "label": "Assinatura",
       "default": "Crafted with purpose.<br>Designed for your craft." },
     { "type": "text", "id": "legal", "label": "Razão social", "default": "TOOLA Bags & Accessories" },
-    { "type": "text", "id": "policies", "label": "Políticas", "default": "Privacidade · Termos · Trocas" }
+    { "type": "paragraph", "content": "A linha de políticas (Privacidade, Termos, Trocas) aparece sozinha quando a política é publicada em Configurações > Políticas." }
   ],
   "blocks": [
     { "type": "column", "name": "Coluna de links", "settings": [
       { "type": "text", "id": "title", "label": "Título", "default": "Produto" },
-      { "type": "link_list", "id": "menu", "label": "Menu" } ] }
+      { "type": "text", "id": "l1_label", "label": "Link 1: texto" },
+      { "type": "text", "id": "l1_url", "label": "Link 1: endereço", "info": "Ex.: /#edicoes, /policies/refund-policy ou https://..." },
+      { "type": "text", "id": "l2_label", "label": "Link 2: texto" },
+      { "type": "text", "id": "l2_url", "label": "Link 2: endereço", "info": "Ex.: /#edicoes, /policies/refund-policy ou https://..." },
+      { "type": "text", "id": "l3_label", "label": "Link 3: texto" },
+      { "type": "text", "id": "l3_url", "label": "Link 3: endereço", "info": "Ex.: /#edicoes, /policies/refund-policy ou https://..." },
+      { "type": "text", "id": "l4_label", "label": "Link 4: texto" },
+      { "type": "text", "id": "l4_url", "label": "Link 4: endereço", "info": "Ex.: /#edicoes, /policies/refund-policy ou https://..." },
+      { "type": "text", "id": "l5_label", "label": "Link 5: texto" },
+      { "type": "text", "id": "l5_url", "label": "Link 5: endereço", "info": "Ex.: /#edicoes, /policies/refund-policy ou https://..." } ] }
   ]
 }
 {% endschema %}

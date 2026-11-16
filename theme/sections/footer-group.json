@@ -8,19 +8,37 @@
         "c1": {
           "type": "column",
           "settings": {
-            "title": "Produto"
+            "title": "Produto",
+            "l1_label": "TOOLA ONE",
+            "l1_url": "/#produto",
+            "l2_label": "Edições",
+            "l2_url": "/#edicoes",
+            "l3_label": "Ficha técnica",
+            "l3_url": "/#detalhes",
+            "l4_label": "Certificação LWG",
+            "l4_url": "/#detalhes"
           }
         },
         "c2": {
           "type": "column",
           "settings": {
-            "title": "Ajuda"
+            "title": "Ajuda",
+            "l1_label": "Envio e prazos",
+            "l1_url": "/policies/shipping-policy",
+            "l2_label": "Trocas e devoluções",
+            "l2_url": "/policies/refund-policy",
+            "l3_label": "Garantia de 90 dias",
+            "l3_url": "/#detalhes",
+            "l4_label": "Fale conosco",
+            "l4_url": "/pages/contact"
           }
         },
         "c3": {
           "type": "column",
           "settings": {
-            "title": "TOOLA"
+            "title": "TOOLA",
+            "l1_label": "Nossa história",
+            "l1_url": "/#marca"
           }
         }
       },

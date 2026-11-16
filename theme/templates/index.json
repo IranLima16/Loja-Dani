@@ -12,9 +12,9 @@
     "hero": {
       "type": "toola-hero",
       "settings": {
-        "eyebrow": "TOOLA ONE · Bolsa porta-ferramentas em couro certificado LWG",
-        "heading": "Tudo o que sua mão procura.<br><em>Onde ela procura.</em>",
-        "lede": "Criada para profissionais que transformam imagens com as próprias mãos. Cabeleireiros, barbeiros e maquiadores. Ferramentas organizadas, ao alcance, durante todo o atendimento.",
+        "eyebrow": "",
+        "heading": "Bolsa profissional para quem transforma imagens com as próprias mãos.",
+        "lede": "Criada para cabeleireiros, barbeiros e maquiadores, a TOOLA é uma bolsa porta-ferramentas que mantém seus instrumentos organizados, protegidos e sempre ao alcance durante todo o atendimento.",
         "video": "shopify://files/videos/video-hero.mp4",
         "slot_id": "Foto 01",
         "slot_brief": "Hairstylist em atendimento · luz natural lateral · plano médio",
@@ -37,7 +37,7 @@
         "s2": {
           "type": "item",
           "settings": {
-            "value": "11 compartimentos",
+            "value": "9 compartimentos",
             "label": "Cada ferramenta no lugar"
           }
         },
@@ -239,14 +239,14 @@
           "type": "spec",
           "settings": {
             "label": "Alça",
-            "value": "Ajustável. Uso a tiracolo, na cintura ou no quadril"
+            "value": "Ajustável, uso tiracolo."
           }
         },
         "t7": {
           "type": "spec",
           "settings": {
             "label": "Organização",
-            "value": "11 compartimentos para tesouras, pentes, presilhas, pincéis e acessórios"
+            "value": "9 compartimentos para tesouras, pentes, presilhas, pincéis e acessórios"
           }
         },
         "t8": {
@@ -316,7 +316,7 @@
           "type": "fit",
           "settings": {
             "label": "Total",
-            "value": "11 compartimentos"
+            "value": "9 compartimentos"
           }
         }
       },

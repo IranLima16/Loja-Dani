@@ -11,7 +11,7 @@ para cabeleireiros, barbeiros e maquiadores.
 ## Estrutura da página
 
 1. Hero
-2. Faixa de credibilidade (LWG · 11 compartimentos · 25 × 18 cm · garantia)
+2. Faixa de credibilidade (LWG · 9 compartimentos · 25 × 18 cm · garantia)
 3. A marca
 4. O produto
 5. As 4 edições (seletor interativo: Caramelo, Cacau, Nude, Noir)
@@ -29,7 +29,7 @@ Barra de compra fixa no mobile, tema claro/escuro automático.
 | Material | Couro com certificação LWG |
 | Produção | Artesanal |
 | Dimensões | 25 cm de altura × 18 cm de largura |
-| Organização | 11 compartimentos |
+| Organização | 9 compartimentos |
 | Cores | Marrom claro, Marrom escuro, Nude, Preto |
 | Garantia | 90 dias |
 

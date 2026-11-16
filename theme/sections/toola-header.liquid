@@ -18,7 +18,7 @@
       {%- else -%}
         <img class="brand-logo" src="{{ 'toola-logo.png' | asset_url }}" alt="" width="40" height="40" loading="eager">
       {%- endif -%}
-      <span>{{ section.settings.brand | default: shop.name }}</span>
+      <span>{{ section.settings.brand | default: 'TOOLA HANDMADE' }}</span>
     </a>
     <nav class="nav-links">
       {%- for link in section.settings.menu.links -%}
@@ -45,7 +45,7 @@
       "type": "text",
       "id": "brand",
       "label": "Marca",
-      "default": "TOOLA"
+      "default": "TOOLA HANDMADE"
     },
     {
       "type": "image_picker",
@@ -57,8 +57,7 @@
       "type": "html",
       "id": "announce",
       "label": "Faixa de aviso",
-      "info": "Aceita HTML. Use <b> para destacar em cor de areia.",
-      "default": "Couro certificado <b>LWG</b> · Produção artesanal · Garantia de 90 dias"
+      "info": "Aceita HTML. Use <b> para destacar em cor de areia. Vazio = sem faixa."
     },
     {
       "type": "link_list",
